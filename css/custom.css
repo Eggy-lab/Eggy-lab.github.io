@@ -1,0 +1,145 @@
+
+.post-img {
+  width: 50%;
+  max-width: 700px;
+  display: block;
+  margin: 2em auto;
+  border-radius: 12px;
+}
+
+/*一行三张的布局，会导致横向照片被裁切成竖的*/
+.gallery-row {
+  display: flex;           /* 启用弹性盒子布局 */
+  flex-wrap: wrap;         /* 超出宽度自动换行 */
+  justify-content: center; /* 水平居中排列所有图片 */
+  gap: 1rem;               /* 图片之间的间距 */
+  margin: 2rem 0;          /* 上下外边距 */
+}
+
+.gallery-img {
+  width: 30%;                                  /* 每张图片占容器宽度的 30%（一行最多约 3 张） */
+  min-width: 200px;                            /* 最小宽度 200px，防止图片太小 */
+  border-radius: 10px;                         /* 圆角边框，增强美观 */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);       /* 添加柔和阴影，让图片浮起来 */
+  object-fit: cover;                           /* 图片填满容器并裁剪（保持比例） */
+  transition: transform 0.2s ease-in-out;      /* 添加过渡效果，用于 hover 动画 */
+
+  aspect-ratio: auto; /* 自动保持原比例 */        /* 自动使用图片本身的宽高比 */
+  height: auto;                                 /* 图片高度自动调整 */
+}
+
+.gallery-img:hover {
+  transform: scale(1.05);                       /* 鼠标悬浮时图片放大 5%，增加交互感 */
+}
+
+/*瀑布流布局*/
+.masonry-gallery {
+  column-count: 3;              /* 分为 3 列 */
+  column-gap: 1rem;             /* 列间距 */
+  padding: 1rem;
+/*
+  max-width: 1080px;
+  margin: 0 auto;
+*/
+}
+
+.masonry-gallery img {
+  width: 100%;                  /* 占满当前列宽 */
+  height: auto;                 /* 保持原始比例 */
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  display: block;
+  break-inside: avoid;         /* 防止图片被截断到两列 */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+
+
+/*0625晚使用js插件排版图片*/
+/* 容器使用 column 实现 Masonry 瀑布流 */
+.macy-gallery {
+  margin: 0 auto;
+  max-width: 1200px;
+
+  column-count: 3; 
+  column-gap: 1rem; 
+  /*
+  display: grid; 这个会严格控制行列高度，不适合瀑布流
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+ */
+  gap: 16px;
+
+  transition: transform 0.2s ease;
+  /*border: 1px dashed red;*/
+  
+}
+
+.macy-gallery img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+/*0626把文章中的文字和图片放到同一个section中*/
+#macy-gallery img:hover {
+  transform: scale(1.02);
+}
+
+.photo-entry {
+  padding: 1.5rem 0;
+
+  /*让文字和照片左右对齐*/
+  max-width: 1200px;
+  margin: 0 auto; /* 居中 */
+
+}
+
+.photo-entry h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+}
+
+.photo-desc {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1.2rem;
+}
+
+.photo-meta {
+  text-align: right;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #999;
+}
+
+/*移动端优化*/
+@media (max-width: 768px) {
+  .macy-gallery {
+    column-count: 2;
+  }
+}
+@media (max-width: 480px) {
+  .macy-gallery {
+    column-count: 1;
+  }
+}
+
+/*
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.photo-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  object-fit: cover;
+}
+*/

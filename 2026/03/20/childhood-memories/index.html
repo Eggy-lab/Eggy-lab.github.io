@@ -1,0 +1,635 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.png"/>
+	<link rel="shortcut icon" href="/img/logo_miccall.png">
+	
+			    <title>
+    Hexo
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="miccall" />
+    
+    	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	 
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script async type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/goose.js"></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+
+<!-- 0625修改文章内图片大小和样式 -->
+<link rel="stylesheet" href="/css/custom.css" />
+
+<!-- 0626增加文章中点击图片显示大图功能 -->
+<!-- LightGallery 样式 -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css"
+/>
+
+<!-- LightGallery 脚本 -->
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    lightGallery(document.getElementById('lightgallery'), {
+      selector: 'a',
+      plugins: [lgZoom, lgThumbnail],
+      speed: 300,
+    });
+  });
+</script>
+
+<!-- 0629APlayer 样式和脚本 -->
+<link rel="stylesheet" href="https://unpkg.com/aplayer/dist/APlayer.min.css">
+<script src="https://unpkg.com/aplayer/dist/APlayer.min.js"></script>
+
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">Eggy</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="简历">
+		                简历
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/group/" title="团队">
+		                团队
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/gallery/" title="图库">
+		                图库
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tag/" title="标签">
+		                标签
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/miccall" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a title="500px" href="http://500px.com" target="_blank" rel="noopener">
+                            <i class="icon fa fa-500px"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+	
+        <div id="main" >
+	    <!--style="height: 25rem; 等于高度400px左右，就算没设背景图也会撑出这么大块空白。所以可以加判断，没有图片的时候就不在开头加这么大空白-->
+	    
+                <div class="post_page_title_img" style="height: 25rem;background-image: url(/images/20260320/B0017731HEIC1773978334.JPG);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                    <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Childhood Memories</h2></a>
+                </div>
+            
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <style>
+html, body { background: #1c1e24 !important; }
+#wrapper, #main, .wrapper, .main, #content, .content, article, .post, .post-wrap, .main-content, .typo {
+  background: transparent !important;
+}
+#main { display: block !important; gap: 0 !important; row-gap: 0 !important; }
+#main > * { margin: 0 !important; border: 0 !important; }
+.typo { padding: 0 !important; margin: 0 !important; }
+.post_page_title_img { margin: 0 !important; padding: 0 !important; display: block; border: 0 !important; background-color: #1c1e24 !important; }
+.post_page_title_img, .post_page_title_img *, .post_page_title_img a, .post_page_title_img h2 { border: 0 !important; box-shadow: none !important; }
+body { color: #eaeaea; }
+
+.dark-band {
+  margin: 0 calc(50% - 50vw);
+  width: 100vw;
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom,
+    rgba(28,30,36,0) 0,
+    rgba(28,30,36,0.55) 700px,
+    rgba(28,30,36,0.55) calc(100% - 300px),
+    rgba(28,30,36,0) 100%
+  );
+  color: #eaeaea;
+}
+
+.stage {
+  color: #eaeaea;
+  position: relative;
+}
+.stage-frame a { filter: drop-shadow(0 20px 40px rgba(0,0,0,0.45)); box-shadow: none !important; }
+.stage-intro {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  letter-spacing: 0.08em;
+}
+.stage-intro .eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.5em;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.stage-intro h2 {
+  font-family: Georgia, serif;
+  font-weight: 300;
+  font-size: 2.6rem;
+  margin: 0;
+  color: #fafafa;
+}
+.stage-intro .scroll-hint {
+  margin-top: 3rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: #666;
+  animation: bob 2s ease-in-out infinite;
+}
+@keyframes bob { 0%,100%{transform:translateY(0);} 50%{transform:translateY(6px);} }
+
+.stage-frame {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 4vw;
+  box-sizing: border-box;
+  position: relative;
+}
+.stage-frame a {
+  display: block;
+  max-width: 100%;
+  max-height: 92vh;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+}
+.stage-frame.in a { opacity: 1; transform: translateY(0); }
+.stage-frame img {
+  display: block;
+  max-width: 100%;
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.stage-caption {
+  position: absolute;
+  bottom: 2.5vh;
+  left: 0; right: 0;
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  color: #777;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 1.2s ease 0.3s;
+}
+.stage-frame.in .stage-caption { opacity: 1; }
+
+.stage-pair {
+  display: flex;
+  gap: 2vw;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+.stage-pair a {
+  flex: 1 1 0;
+  max-width: 46vw;
+  max-height: 88vh;
+}
+.stage-pair img {
+  max-width: 100%;
+  max-height: 88vh;
+}
+
+.stage-outro {
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.5em;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.stage-reviews {
+  color: #eaeaea;
+  padding: 5rem 1.5rem 6rem;
+  box-sizing: border-box;
+}
+.stage-reviews .inner {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: Georgia, serif;
+}
+.stage-reviews h2 {
+  font-weight: 300;
+  font-size: 1.4rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: #fafafa;
+  text-align: center;
+  margin: 0 0 2rem;
+}
+.stage-reviews h2::before, .stage-reviews h2::after {
+  content: ""; display: inline-block; width: 28px; height: 1px;
+  background: #555; vertical-align: middle; margin: 0 1rem;
+}
+.stage-reviews #rating {
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+  color: #444;
+  text-align: center;
+  letter-spacing: 0.2em;
+}
+.stage-reviews #review-form input,
+.stage-reviews #review-form textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #333;
+  color: #eaeaea;
+  padding: 0.6rem 0;
+  margin-bottom: 0.8rem;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.stage-reviews #review-form input:focus,
+.stage-reviews #review-form textarea:focus { border-bottom-color: #aaa; }
+.stage-reviews #review-form textarea { resize: vertical; }
+.stage-reviews #review-form button {
+  margin-top: 0.5rem;
+  padding: 0.6rem 1.8rem;
+  background: transparent;
+  color: #eaeaea;
+  border: 1px solid #555;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s;
+}
+.stage-reviews #review-form button:hover { background: #eaeaea; color: #0a0a0a; border-color: #eaeaea; }
+.stage-reviews #review-list { margin-top: 2rem; list-style: none; padding: 0; }
+.stage-reviews #review-list li {
+  border-top: 1px solid #222;
+  padding: 1rem 0;
+  color: #bbb;
+}
+.stage-reviews #review-list li strong { color: #fafafa; font-weight: 400; }
+.stage-reviews #review-list li small { color: #666; }
+</style>
+
+<div class="dark-band">
+<section class="stage" id="lightgallery">
+  <div class="stage-intro">
+    <div class="eyebrow">03 · 20 · 2026</div>
+    <h2>Childhood Memories</h2>
+    <div class="scroll-hint">↓ scroll</div>
+  </div>
+
+  <div class="stage-frame"><a href="/images/20260320/B0018143HEIC1774003714.JPG"><img src="/images/20260320/B0018143HEIC1774003714.JPG" alt="01" /></a><div class="stage-caption">01</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017731HEIC1773978334.JPG"><img src="/images/20260320/B0017731HEIC1773978334.JPG" alt="02" /></a><div class="stage-caption">02</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017761HEIC1773978938.JPG"><img src="/images/20260320/B0017761HEIC1773978938.JPG" alt="03" /></a><div class="stage-caption">03</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017764HEIC1773978990.JPG"><img src="/images/20260320/B0017764HEIC1773978990.JPG" alt="04" /></a><div class="stage-caption">04</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017767HEIC1773979062.JPG"><img src="/images/20260320/B0017767HEIC1773979062.JPG" alt="05" /></a><div class="stage-caption">05</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017780HEIC1773979258.JPG"><img src="/images/20260320/B0017780HEIC1773979258.JPG" alt="06" /></a><div class="stage-caption">06</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017784HEIC1773979356.JPG"><img src="/images/20260320/B0017784HEIC1773979356.JPG" alt="07" /></a><div class="stage-caption">07</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017788HEIC1773979436.JPG"><img src="/images/20260320/B0017788HEIC1773979436.JPG" alt="08" /></a><div class="stage-caption">08</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017800HEIC1773979634.JPG"><img src="/images/20260320/B0017800HEIC1773979634.JPG" alt="09" /></a><div class="stage-caption">09</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017841HEIC1773983242.JPG"><img src="/images/20260320/B0017841HEIC1773983242.JPG" alt="10" /></a><div class="stage-caption">10</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017843HEIC1773983268.JPG"><img src="/images/20260320/B0017843HEIC1773983268.JPG" alt="11" /></a><div class="stage-caption">11</div></div>
+  <div class="stage-frame"><div class="stage-pair"><a href="/images/20260320/B0017918HEIC1773991984.JPG"><img src="/images/20260320/B0017918HEIC1773991984.JPG" alt="12" /></a><a href="/images/20260320/B0017861HEIC1773983458.JPG"><img src="/images/20260320/B0017861HEIC1773983458.JPG" alt="13" /></a></div><div class="stage-caption">12 · 13</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017886HEIC1773984262.JPG"><img src="/images/20260320/B0017886HEIC1773984262.JPG" alt="14" /></a><div class="stage-caption">14</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017896HEIC1773984402.JPG"><img src="/images/20260320/B0017896HEIC1773984402.JPG" alt="15" /></a><div class="stage-caption">15</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017900HEIC1773984480.JPG"><img src="/images/20260320/B0017900HEIC1773984480.JPG" alt="16" /></a><div class="stage-caption">16</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017904HEIC1773984522.JPG"><img src="/images/20260320/B0017904HEIC1773984522.JPG" alt="17" /></a><div class="stage-caption">17</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017911HEIC1773984636.JPG"><img src="/images/20260320/B0017911HEIC1773984636.JPG" alt="18" /></a><div class="stage-caption">18</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017968HEIC1773995572.JPG"><img src="/images/20260320/B0017968HEIC1773995572.JPG" alt="19" /></a><div class="stage-caption">19</div></div>
+  <div class="stage-frame"><div class="stage-pair"><a href="/images/20260320/B0017989HEIC1773996896.JPG"><img src="/images/20260320/B0017989HEIC1773996896.JPG" alt="20" /></a><a href="/images/20260320/B0017976HEIC1773996646.JPG"><img src="/images/20260320/B0017976HEIC1773996646.JPG" alt="21" /></a></div><div class="stage-caption">20 · 21</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0018067HEIC1773998020.JPG"><img src="/images/20260320/B0018067HEIC1773998020.JPG" alt="22" /></a><div class="stage-caption">22</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0018070HEIC1773998052.JPG"><img src="/images/20260320/B0018070HEIC1773998052.JPG" alt="23" /></a><div class="stage-caption">23</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0018093HEIC1773998990.JPG"><img src="/images/20260320/B0018093HEIC1773998990.JPG" alt="24" /></a><div class="stage-caption">24</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0018098HEIC1773999116.JPG"><img src="/images/20260320/B0018098HEIC1773999116.JPG" alt="25" /></a><div class="stage-caption">25</div></div>
+  <div class="stage-frame"><a href="/images/20260320/B0017680HEIC1773974600.JPG"><img src="/images/20260320/B0017680HEIC1773974600.JPG" alt="26" /></a><div class="stage-caption">26</div></div>
+
+  <div class="stage-outro">— fin —</div>
+</section>
+
+<section class="stage-reviews">
+  <div class="inner">
+    <h2>Reviews</h2>
+    <div id="rating">
+      <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+    </div>
+    <form id="review-form" style="margin-top:1.5rem;">
+      <input type="text" id="review-name" placeholder="你的名字" />
+      <textarea id="review-text" placeholder="留下你的评价..." rows="3"></textarea>
+      <div style="text-align:center;"><button type="submit">Submit</button></div>
+    </form>
+    <ul id="review-list"></ul>
+  </div>
+</section>
+</div>
+
+<script>
+(function(){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting) e.target.classList.add('in');
+    });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('.stage-frame').forEach(function(el){ io.observe(el); });
+  var KEY = 'reviews_20260320_childhood';
+  var stars = document.querySelectorAll('#rating span');
+  var current = 0;
+  function paint(n){ stars.forEach(function(s){ s.style.color = s.dataset.v <= n ? '#f5b301' : '#444'; }); }
+  stars.forEach(function(s){
+    s.addEventListener('mouseenter', function(){ paint(s.dataset.v); });
+    s.addEventListener('mouseleave', function(){ paint(current); });
+    s.addEventListener('click', function(){ current = s.dataset.v; paint(current); });
+  });
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch(e){ return []; } }
+  function render(){
+    var list = document.getElementById('review-list');
+    list.innerHTML = load().map(function(r){
+      return '<li><strong>'+r.name+'</strong> <span style="color:#f5b301;">'+'★'.repeat(r.rating)+'</span><br><span>'+r.text+'</span><br><small>'+r.time+'</small></li>';
+    }).join('');
+  }
+  document.getElementById('review-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('review-name').value.trim() || '匿名';
+    var text = document.getElementById('review-text').value.trim();
+    if(!text || !current) return alert('请打分并写几句～');
+    var all = load();
+    all.unshift({name:name, text:text, rating:+current, time:new Date().toLocaleString()});
+    localStorage.setItem(KEY, JSON.stringify(all));
+    document.getElementById('review-text').value = '';
+    current = 0; paint(0);
+    render();
+  });
+  render();
+})();
+</script>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://example.com/2026/03/20/childhood-memories/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://example.com/2026/03/20/childhood-memories/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//http-miccall-tech.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a target="_blank" rel="noopener" href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+                <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+
+<!-- 0626 Masonry Layout with Macy.js -->
+<script src="https://cdn.jsdelivr.net/npm/macy@2.5.1/dist/macy.min.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    Macy({
+      container: '#macy-gallery',
+      trueOrder: false,
+      waitForImages: true,
+      margin: 16,
+      columns: 3,
+      breakAt: {
+        940: 2,
+        520: 1
+      }
+    });
+  });
+</script>
+
+<!-- 0627 在 Hexo 页面中加入如下 JS 脚本设置音频和视频默认音量为 20% 插入位置建议：
+放在文章 Markdown 中的末尾（用三反引号包住 <script>，或加在 HTML 块中）；
+或统一放在主题的 _layout/layout.ejs 或 post.ejs 文件底部（一次生效所有文章页）。
+-->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const audios = document.querySelectorAll("audio");
+    const videos = document.querySelectorAll("video");
+
+    audios.forEach(audio => {
+      audio.volume = 0.2;
+    });
+
+    videos.forEach(video => {
+      video.volume = 0.2;
+    });
+  });
+</script>
+
+
+</body>
+
+
+
+
+ 	
+</html>
