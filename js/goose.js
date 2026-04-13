@@ -333,8 +333,16 @@ function spawnGoose(index) {
 function spawnEgg() {
   const egg = document.createElement('div');
   egg.textContent = '🥚';
-  const startX = window.innerWidth - 120;
-  const startY = window.innerHeight - 100;
+  const nestEl = document.querySelector('.mini-player .mp-emoji');
+  let startX, startY;
+  if (nestEl) {
+    const r = nestEl.getBoundingClientRect();
+    startX = r.left + r.width / 2 - 24;
+    startY = r.top + r.height * 0.28 - 24;
+  } else {
+    startX = window.innerWidth - 120;
+    startY = window.innerHeight - 100;
+  }
   nest.x = startX + 24;
   nest.y = startY + 24;
   Object.assign(egg.style, {

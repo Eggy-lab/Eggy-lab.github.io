@@ -9,6 +9,9 @@
     Hexo
     </title>
     <meta charset="utf-8" />
+    <script>
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="/css/mic_main.css" />
     <link rel="stylesheet" href="/css/dropdownMenu.css" />
@@ -237,91 +240,6 @@ xxxxxx
 
             </div>
 
-            <!-- Post Comments -->
-            
-    <!-- 使用 DISQUS_CLICK -->
-<div id="disqus-comment">
-    <div id="disqus_thread"></div>
-
-<!-- add animation -->
-<style>
-	.disqus_click_btn {
-            line-height: 30px;
-            margin: 0;
-            min-width: 50px;
-            padding: 0 14px;
-            display: inline-block;
-            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-            font-size: 14px;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 0;
-            overflow: hidden;
-            will-change: box-shadow;
-            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
-            outline: 0;
-            cursor: pointer;
-            text-decoration: none;
-            text-align: center;
-            vertical-align: middle;
-            border: 0;
-            background: rgba(158, 158, 158, .2);
-            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
-            color: #fff;
-            background-color: #7EC0EE;
-            text-shadow: 0
-        }
-</style>
-	
-<div class="btn_click_load" id="disqus_bt"> 
-    <button class="disqus_click_btn">点击查看评论</button>
-</div>
-
-<!--
-<script type="text/javascript">
-$('.btn_click_load').click(function() {
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-
-    document.getElementById('disqus_bt').style.display = "none";
-});
-</script>
--->
-<script type="text/javascript">
-    var disqus_config = function () {
-        this.page.url = 'http://example.com/2025/06/26/Sunset-in-Seattle/';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://example.com/2025/06/26/Sunset-in-Seattle/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-</script>
-
-<script type="text/javascript">
-    $('.btn_click_load').click(function() {  //click to load comments
-        (function() { // DON'T EDIT BELOW THIS LINE
-            var d = document;
-            var s = d.createElement('script');
-            s.src = '//http-miccall-tech.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', + new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-        $('.btn_click_load').css('display','none');
-    });
-</script>
-</div>
-<style>
-    #disqus-comment{
-        background-color: #eee;
-        padding: 2pc;
-    }
-</style>
-
-
         </div>
         <!-- Copyright 版权 start -->
                 <div id="copyright">
@@ -334,6 +252,204 @@ $('.btn_click_load').click(function() {
 			
         </div>
     </div>
+
+    <!-- Nest mini player (自动在每篇文章右下角显示) -->
+    
+<style>
+.mini-player {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.9;
+  transition: opacity 0.25s;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-family: Georgia, serif;
+}
+.mini-player:hover { opacity: 1; }
+.mini-player .mp-btn {
+  position: relative;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0;
+  cursor: pointer;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+.mini-player .mp-btn:hover { transform: scale(1.08); }
+.mini-player .mp-emoji { font-size: 72px; display: inline-block; }
+.mini-player .mp-icon {
+  position: absolute;
+  left: 50%;
+  top: 77%;
+  transform: translate(-50%, -50%);
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: rgba(255, 248, 230, 0.35);
+  color: rgba(90, 69, 40, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transition: background 0.25s;
+}
+.mini-player .mp-btn:hover .mp-icon { background: rgba(255, 248, 230, 0.7); }
+.mini-player .mp-meta { width: 130px; text-align: center; color: #f0e4d0; }
+.mini-player .mp-title {
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #d8c8a8;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.mini-player .mp-title-inner {
+  display: inline-block;
+  padding-left: 100%;
+  animation: mp-marquee 10s linear infinite;
+}
+@keyframes mp-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+.mini-player .mp-bar {
+  height: 4px;
+  background: rgba(240,220,180,0.25);
+  border-radius: 4px;
+  cursor: pointer;
+  overflow: hidden;
+  width: 100%;
+  touch-action: none;
+}
+.mini-player .mp-fill {
+  height: 100%;
+  width: 0%;
+  background: #f0e4d0;
+  transition: width 0.1s linear;
+}
+.mini-player .mp-time {
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: #c8b890;
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+@media (max-width: 600px) {
+  .mini-player { right: 10px; bottom: 10px; }
+  .mini-player .mp-emoji { font-size: 56px; }
+  .mini-player .mp-icon { width: 14px; height: 14px; }
+}
+</style>
+
+<div class="mini-player">
+  <button class="mp-btn" aria-label="play/pause">
+    <span class="mp-emoji">🪹</span>
+    <span class="mp-icon mp-play">
+      <svg viewBox="0 0 24 24" width="10" height="10"><path fill="currentColor" d="M7 5v14l12-7z"/></svg>
+    </span>
+    <span class="mp-icon mp-pause" style="display:none">
+      <svg viewBox="0 0 24 24" width="10" height="10"><path fill="currentColor" d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    </span>
+  </button>
+  <div class="mp-meta">
+    <div class="mp-title"><span class="mp-title-inner"></span></div>
+    <div class="mp-bar"><div class="mp-fill"></div></div>
+    <div class="mp-time">0:00</div>
+  </div>
+  <audio src="/audio/56937.mp3" preload="auto" autoplay loop></audio>
+</div>
+
+<script>
+(function(){
+  var root = document.currentScript.previousElementSibling;
+  while (root && !root.classList.contains('mini-player')) root = root.previousElementSibling;
+  var audio = root.querySelector('audio');
+  var btn = root.querySelector('.mp-btn');
+  var playI = root.querySelector('.mp-play');
+  var pauseI = root.querySelector('.mp-pause');
+  var fill = root.querySelector('.mp-fill');
+  var bar = root.querySelector('.mp-bar');
+  var time = root.querySelector('.mp-time');
+  function fmt(t){ if(!isFinite(t)) return '0:00'; var m=Math.floor(t/60), s=Math.floor(t%60); return m+':'+(s<10?'0':'')+s; }
+  var src = audio.getAttribute('src') || '';
+  root.querySelector('.mp-title-inner').textContent = decodeURIComponent(src.split('/').pop() || '');
+  audio.volume = 0.4;
+  fetch(src).then(function(r){ return r.blob(); }).then(function(blob){
+    var wasPaused = audio.paused;
+    var t = audio.currentTime;
+    audio.src = URL.createObjectURL(blob);
+    audio.addEventListener('loadedmetadata', function once(){
+      audio.removeEventListener('loadedmetadata', once);
+      audio.currentTime = t;
+      if (!wasPaused) audio.play().catch(function(){});
+    });
+  }).catch(function(){});
+  var events = ['pointerdown','click','touchstart','keydown'];
+  var resume = function(){
+    if (!audio.paused) return cleanup();
+    var pr = audio.play();
+    if (pr && pr.then) pr.then(cleanup).catch(function(){});
+  };
+  function cleanup(){ events.forEach(function(ev){ window.removeEventListener(ev, resume, true); }); }
+  events.forEach(function(ev){ window.addEventListener(ev, resume, true); });
+  var initial = audio.play();
+  if (initial && initial.then) initial.then(cleanup).catch(function(){});
+  btn.addEventListener('click', function(){ audio.paused ? audio.play() : audio.pause(); });
+  audio.addEventListener('play', function(){ playI.style.display='none'; pauseI.style.display=''; });
+  audio.addEventListener('pause', function(){ playI.style.display=''; pauseI.style.display='none'; });
+  var scrubbing = false;
+  audio.addEventListener('timeupdate', function(){
+    if (scrubbing) return;
+    var p = audio.duration ? (audio.currentTime/audio.duration*100) : 0;
+    fill.style.width = p+'%';
+    time.textContent = fmt(audio.currentTime);
+  });
+  audio.addEventListener('loadedmetadata', function(){ time.textContent = fmt(audio.duration); });
+  function ratioFromEvent(e){
+    var r = bar.getBoundingClientRect();
+    return Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+  }
+  function applyRatio(ratio){
+    fill.style.width = (ratio * 100) + '%';
+    if (isFinite(audio.duration)) time.textContent = fmt(ratio * audio.duration);
+  }
+  bar.addEventListener('pointerdown', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    scrubbing = true;
+    applyRatio(ratioFromEvent(e));
+  });
+  window.addEventListener('pointermove', function(e){
+    if (!scrubbing) return;
+    applyRatio(ratioFromEvent(e));
+  }, true);
+  function endScrub(e){
+    if (!scrubbing) return;
+    var ratio = ratioFromEvent(e);
+    scrubbing = false;
+    applyRatio(ratio);
+    if (isFinite(audio.duration) && audio.duration > 0) {
+      audio.currentTime = ratio * audio.duration;
+      var pr = audio.play();
+      if (pr && pr.catch) pr.catch(function(){});
+    }
+  }
+  window.addEventListener('pointerup', endScrub, true);
+  window.addEventListener('pointercancel', endScrub, true);
+})();
+</script>
+
 
 <!-- 0626 Masonry Layout with Macy.js -->
 <script src="https://cdn.jsdelivr.net/npm/macy@2.5.1/dist/macy.min.js"></script>
