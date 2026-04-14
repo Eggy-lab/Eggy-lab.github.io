@@ -96,7 +96,7 @@
 <script>
   window.addEventListener('DOMContentLoaded', function () {
     lightGallery(document.getElementById('lightgallery'), {
-      selector: 'a',
+      selector: 'a:not(.film-thumb)',
       plugins: [lgZoom, lgThumbnail],
       speed: 300,
     });
@@ -196,7 +196,7 @@
             <div class="typo" style="padding: 3rem;">
                 <style>
 /* Only for this page — strip the global white background */
-html, body { background: #1c1e24 !important; }
+html, body { background: #1c1e24 !important; scroll-behavior: smooth; }
 #wrapper, #main, .wrapper, .main, #content, .content, article, .post, .post-wrap, .main-content, .typo {
   background: transparent !important;
 }
@@ -226,7 +226,7 @@ body { color: #eaeaea; }
   color: #eaeaea;
   position: relative;
 }
-.stage-frame a { filter: drop-shadow(0 20px 40px rgba(0,0,0,0.45)); box-shadow: none !important; }
+.stage-frame a { box-shadow: none !important; }
 .stage-intro {
   height: 60vh;
   display: flex;
@@ -259,6 +259,85 @@ body { color: #eaeaea; }
 }
 @keyframes bob { 0%,100%{transform:translateY(0);} 50%{transform:translateY(6px);} }
 
+/* === Left sidebar film strip (overview navigator) === */
+.film-strip {
+  position: fixed;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%) translateX(-8px);
+  z-index: 50;
+  background: transparent;
+  border: none;
+  padding: 0;
+  max-height: 80vh;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+.film-strip.visible {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+  pointer-events: auto;
+}
+.film-strip-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: calc(80vh - 20px);
+  overflow-y: auto;
+  padding: 0 2px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+}
+.film-strip-inner::-webkit-scrollbar { width: 0; height: 0; display: none; }
+/* 135 film frame: image area 3:2 (36×24), total frame ~35mm tall — top/bottom black bands with sprocket holes */
+.film-thumb {
+  flex: 0 0 auto;
+  width: 72px;             /* image-area width */
+  padding: 11px 3px;       /* top/bottom = sprocket bands (~31% of image height) */
+  background: #0a0a0a;
+  box-sizing: content-box;
+  opacity: 0.65;
+  /* sprocket holes, top & bottom */
+  background-image:
+    radial-gradient(circle, #2a2a2a 45%, transparent 47%),
+    radial-gradient(circle, #2a2a2a 45%, transparent 47%);
+  background-size: 10px 6px, 10px 6px;
+  background-position: 4px 3px, 4px calc(100% - 3px);
+  background-repeat: repeat-x, repeat-x;
+  transition: width 0.3s cubic-bezier(.2,.8,.2,1),
+              padding 0.3s cubic-bezier(.2,.8,.2,1),
+              opacity 0.25s ease,
+              box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+.film-thumb img {
+  display: block;
+  width: 100%;
+  height: 48px;            /* image area 72×48 → 3:2 */
+  object-fit: cover;
+  filter: brightness(0.85);
+  transition: height 0.3s cubic-bezier(.2,.8,.2,1), filter 0.25s ease;
+}
+.film-thumb:hover {
+  opacity: 1;
+  width: 96px;
+  padding: 15px 4px;
+}
+.film-thumb:hover img,
+.film-thumb.active img { filter: brightness(1.15); }
+.film-thumb:hover img { height: 64px; }
+.film-thumb.active {
+  opacity: 1;
+}
+@media (max-width: 640px) {
+  .film-strip { left: 6px; }
+  .film-thumb { width: 52px; padding: 8px 2px; background-size: 8px 5px, 8px 5px; }
+  .film-thumb img { height: 35px; }
+}
+
 .stage-frame {
   min-height: 100vh;
   display: flex;
@@ -267,6 +346,7 @@ body { color: #eaeaea; }
   padding: 4vh 4vw;
   box-sizing: border-box;
   position: relative;
+  scroll-margin-top: 0;
 }
 .stage-frame a {
   display: block;
@@ -288,7 +368,7 @@ body { color: #eaeaea; }
 }
 .stage-caption {
   position: absolute;
-  bottom: 2.5vh;
+  bottom: 0.3vh;
   left: 0; right: 0;
   text-align: center;
   font-size: 0.72rem;
@@ -320,18 +400,29 @@ body { color: #eaeaea; }
     <div class="scroll-hint">↓ scroll</div>
   </div>
 
-<style>
-</style>
+  <nav class="film-strip" id="film-strip" aria-label="照片目录">
+    <div class="film-strip-inner">
+      <a class="film-thumb" href="#shot-01" data-target="shot-01"><img src="/images/20260405/thumb/B0018669HEIC1775409746.JPG" alt="01" loading="lazy" decoding="async" /></a>
+      <a class="film-thumb" href="#shot-02" data-target="shot-02"><img src="/images/20260405/thumb/B0018587HEIC1775408304.JPG" alt="02" loading="lazy" decoding="async" /></a>
+      <a class="film-thumb" href="#shot-03" data-target="shot-03"><img src="/images/20260405/thumb/B0018605HEIC1775408662.JPG" alt="03" loading="lazy" decoding="async" /></a>
+      <a class="film-thumb" href="#shot-04" data-target="shot-04"><img src="/images/20260405/thumb/B0018620HEIC1775408858.JPG" alt="04" loading="lazy" decoding="async" /></a>
+      <a class="film-thumb" href="#shot-05" data-target="shot-05"><img src="/images/20260405/thumb/B0018627HEIC1775409116.JPG" alt="05" loading="lazy" decoding="async" /></a>
+      <a class="film-thumb" href="#shot-06" data-target="shot-06"><img src="/images/20260405/thumb/IMG_5771.jpg" alt="06" loading="lazy" decoding="async" /></a>
+      <a class="film-thumb" href="#shot-07" data-target="shot-07"><img src="/images/20260405/thumb/B0018644HEIC1775409352.JPG" alt="07" loading="lazy" decoding="async" /></a>
+      <a class="film-thumb" href="#shot-08" data-target="shot-08"><img src="/images/20260405/thumb/B0018702HEIC1775410764.JPG" alt="08" loading="lazy" decoding="async" /></a>
+      <a class="film-thumb" href="#shot-09" data-target="shot-09"><img src="/images/20260405/thumb/B0018705HEIC1775410812.JPG" alt="09" loading="lazy" decoding="async" /></a>
+    </div>
+  </nav>
 
-  <div class="stage-frame"><a href="/images/20260405/B0018669HEIC1775409746.JPG"><img src="/images/20260405/B0018669HEIC1775409746.JPG" alt="01" /></a><div class="stage-caption">01</div></div>
-  <div class="stage-frame"><a href="/images/20260405/B0018587HEIC1775408304.JPG"><img src="/images/20260405/B0018587HEIC1775408304.JPG" alt="02" /></a><div class="stage-caption">02</div></div>
-  <div class="stage-frame"><a href="/images/20260405/B0018605HEIC1775408662.JPG"><img src="/images/20260405/B0018605HEIC1775408662.JPG" alt="03" /></a><div class="stage-caption">03</div></div>
-  <div class="stage-frame"><a href="/images/20260405/B0018620HEIC1775408858.JPG"><img src="/images/20260405/B0018620HEIC1775408858.JPG" alt="04" /></a><div class="stage-caption">04</div></div>
-  <div class="stage-frame"><a href="/images/20260405/B0018627HEIC1775409116.JPG"><img src="/images/20260405/B0018627HEIC1775409116.JPG" alt="05" /></a><div class="stage-caption">05</div></div>
-  <div class="stage-frame"><a href="/images/20260405/IMG_5771.jpg"><img src="/images/20260405/IMG_5771.jpg" alt="06" /></a><div class="stage-caption">06</div></div>
-  <div class="stage-frame"><a href="/images/20260405/B0018644HEIC1775409352.JPG"><img src="/images/20260405/B0018644HEIC1775409352.JPG" alt="07" /></a><div class="stage-caption">07</div></div>
-  <div class="stage-frame"><a href="/images/20260405/B0018702HEIC1775410764.JPG"><img src="/images/20260405/B0018702HEIC1775410764.JPG" alt="08" /></a><div class="stage-caption">08</div></div>
-  <div class="stage-frame"><a href="/images/20260405/B0018705HEIC1775410812.JPG"><img src="/images/20260405/B0018705HEIC1775410812.JPG" alt="09" /></a><div class="stage-caption">09</div></div>
+  <div class="stage-frame" id="shot-01"><a href="/images/20260405/B0018669HEIC1775409746.JPG"><img src="/images/20260405/B0018669HEIC1775409746.JPG" alt="01" loading="lazy" decoding="async" /></a><div class="stage-caption">01</div></div>
+  <div class="stage-frame" id="shot-02"><a href="/images/20260405/B0018587HEIC1775408304.JPG"><img src="/images/20260405/B0018587HEIC1775408304.JPG" alt="02" loading="lazy" decoding="async" /></a><div class="stage-caption">02</div></div>
+  <div class="stage-frame" id="shot-03"><a href="/images/20260405/B0018605HEIC1775408662.JPG"><img src="/images/20260405/B0018605HEIC1775408662.JPG" alt="03" loading="lazy" decoding="async" /></a><div class="stage-caption">03</div></div>
+  <div class="stage-frame" id="shot-04"><a href="/images/20260405/B0018620HEIC1775408858.JPG"><img src="/images/20260405/B0018620HEIC1775408858.JPG" alt="04" loading="lazy" decoding="async" /></a><div class="stage-caption">04</div></div>
+  <div class="stage-frame" id="shot-05"><a href="/images/20260405/B0018627HEIC1775409116.JPG"><img src="/images/20260405/B0018627HEIC1775409116.JPG" alt="05" loading="lazy" decoding="async" /></a><div class="stage-caption">05</div></div>
+  <div class="stage-frame" id="shot-06"><a href="/images/20260405/IMG_5771.jpg"><img src="/images/20260405/IMG_5771.jpg" alt="06" loading="lazy" decoding="async" /></a><div class="stage-caption">06</div></div>
+  <div class="stage-frame" id="shot-07"><a href="/images/20260405/B0018644HEIC1775409352.JPG"><img src="/images/20260405/B0018644HEIC1775409352.JPG" alt="07" loading="lazy" decoding="async" /></a><div class="stage-caption">07</div></div>
+  <div class="stage-frame" id="shot-08"><a href="/images/20260405/B0018702HEIC1775410764.JPG"><img src="/images/20260405/B0018702HEIC1775410764.JPG" alt="08" loading="lazy" decoding="async" /></a><div class="stage-caption">08</div></div>
+  <div class="stage-frame" id="shot-09"><a href="/images/20260405/B0018705HEIC1775410812.JPG"><img src="/images/20260405/B0018705HEIC1775410812.JPG" alt="09" loading="lazy" decoding="async" /></a><div class="stage-caption">09</div></div>
 
   <div class="stage-outro">— fin —</div>
 </section>
@@ -344,6 +435,46 @@ body { color: #eaeaea; }
     });
   }, { threshold: 0.25 });
   document.querySelectorAll('.stage-frame').forEach(function(el){ io.observe(el); });
+
+  // Film strip: show after the intro, highlight active frame, auto-scroll strip.
+  var strip = document.getElementById('film-strip');
+  var intro = document.querySelector('.stage-intro');
+  var thumbs = document.querySelectorAll('.film-thumb');
+  var thumbMap = {};
+  thumbs.forEach(function(t){ thumbMap[t.dataset.target] = t; });
+
+  var firstFrame = document.querySelector('.stage-frame');
+  var triggerObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) strip.classList.add('visible');
+      else if (e.boundingClientRect.top > 0) strip.classList.remove('visible');
+    });
+  }, { threshold: 0.15 });
+  if (firstFrame) triggerObserver.observe(firstFrame);
+
+  var activeObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) {
+        var id = e.target.id;
+        thumbs.forEach(function(t){ t.classList.remove('active'); });
+        var t = thumbMap[id];
+        if (t) {
+          t.classList.add('active');
+          // keep the active thumb in view horizontally
+          var inner = strip.querySelector('.film-strip-inner');
+          var tRect = t.getBoundingClientRect();
+          var iRect = inner.getBoundingClientRect();
+          if (tRect.top < iRect.top + 20 || tRect.bottom > iRect.bottom - 20) {
+            inner.scrollTo({
+              top: t.offsetTop - inner.clientHeight / 2 + t.clientHeight / 2,
+              behavior: 'smooth'
+            });
+          }
+        }
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stage-frame').forEach(function(el){ activeObserver.observe(el); });
 })();
 </script>
 
@@ -469,8 +600,8 @@ body { color: #eaeaea; }
   render();
 })();
 </script>
-
-
+</content>
+</invoke>
             </div>
 
         </div>
@@ -600,7 +731,7 @@ body { color: #eaeaea; }
     <div class="mp-bar"><div class="mp-fill"></div></div>
     <div class="mp-time">0:00</div>
   </div>
-  <audio src="/audio/56937.mp3" preload="auto" autoplay loop></audio>
+  <audio src="/audio/56937.mp3" preload="metadata" loop></audio>
 </div>
 
 <script>
@@ -628,16 +759,6 @@ body { color: #eaeaea; }
       if (!wasPaused) audio.play().catch(function(){});
     });
   }).catch(function(){});
-  var events = ['pointerdown','click','touchstart','keydown'];
-  var resume = function(){
-    if (!audio.paused) return cleanup();
-    var pr = audio.play();
-    if (pr && pr.then) pr.then(cleanup).catch(function(){});
-  };
-  function cleanup(){ events.forEach(function(ev){ window.removeEventListener(ev, resume, true); }); }
-  events.forEach(function(ev){ window.addEventListener(ev, resume, true); });
-  var initial = audio.play();
-  if (initial && initial.then) initial.then(cleanup).catch(function(){});
   btn.addEventListener('click', function(){ audio.paused ? audio.play() : audio.pause(); });
   audio.addEventListener('play', function(){ playI.style.display='none'; pauseI.style.display=''; });
   audio.addEventListener('pause', function(){ playI.style.display=''; pauseI.style.display='none'; });
@@ -674,8 +795,6 @@ body { color: #eaeaea; }
     applyRatio(ratio);
     if (isFinite(audio.duration) && audio.duration > 0) {
       audio.currentTime = ratio * audio.duration;
-      var pr = audio.play();
-      if (pr && pr.catch) pr.catch(function(){});
     }
   }
   window.addEventListener('pointerup', endScrub, true);

@@ -96,7 +96,7 @@
 <script>
   window.addEventListener('DOMContentLoaded', function () {
     lightGallery(document.getElementById('lightgallery'), {
-      selector: 'a',
+      selector: 'a:not(.film-thumb)',
       plugins: [lgZoom, lgThumbnail],
       speed: 300,
     });
@@ -367,7 +367,7 @@ xxxxxx
     <div class="mp-bar"><div class="mp-fill"></div></div>
     <div class="mp-time">0:00</div>
   </div>
-  <audio src="/audio/56937.mp3" preload="auto" autoplay loop></audio>
+  <audio src="/audio/56937.mp3" preload="metadata" loop></audio>
 </div>
 
 <script>
@@ -395,16 +395,6 @@ xxxxxx
       if (!wasPaused) audio.play().catch(function(){});
     });
   }).catch(function(){});
-  var events = ['pointerdown','click','touchstart','keydown'];
-  var resume = function(){
-    if (!audio.paused) return cleanup();
-    var pr = audio.play();
-    if (pr && pr.then) pr.then(cleanup).catch(function(){});
-  };
-  function cleanup(){ events.forEach(function(ev){ window.removeEventListener(ev, resume, true); }); }
-  events.forEach(function(ev){ window.addEventListener(ev, resume, true); });
-  var initial = audio.play();
-  if (initial && initial.then) initial.then(cleanup).catch(function(){});
   btn.addEventListener('click', function(){ audio.paused ? audio.play() : audio.pause(); });
   audio.addEventListener('play', function(){ playI.style.display='none'; pauseI.style.display=''; });
   audio.addEventListener('pause', function(){ playI.style.display=''; pauseI.style.display='none'; });
@@ -441,8 +431,6 @@ xxxxxx
     applyRatio(ratio);
     if (isFinite(audio.duration) && audio.duration > 0) {
       audio.currentTime = ratio * audio.duration;
-      var pr = audio.play();
-      if (pr && pr.catch) pr.catch(function(){});
     }
   }
   window.addEventListener('pointerup', endScrub, true);

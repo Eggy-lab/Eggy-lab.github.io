@@ -62,6 +62,8 @@ function spawnGoose(index) {
     position: 'fixed',
     padding: '4px 10px',
     background: '#fff',
+    color: '#111',
+    opacity: '1',
     border: '2px solid #222',
     borderRadius: '12px',
     fontFamily: 'sans-serif',
