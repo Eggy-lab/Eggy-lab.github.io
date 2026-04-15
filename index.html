@@ -158,20 +158,190 @@
         <!-- Main 主要部分 start -->
         
         <!-- Main-first -->
-                    <div id="main">
+                    
+        <div id="main" style="background-color: transparent; padding: 0;">
             <!-- Main first s-->
-            <article id="me" class="panel">
-                <header style="color: #000000">
-                    <h1>Eggy Wong</h1>
-                    <p>Ben's Egg.</p>
-                </header>
-                <a href="" class="jumplink pic">
-                    <span class="arrow icon fa-chevron-right"><span></span></span>
-                    <img src="/images/DSCF9664.JPG" alt="" />
-                </a>
+            <article id="me" class="panel hero-panel">
+                <div class="hero-bg" style="background-image:url(/images/DSCF9664.JPG)"></div>
+                <div class="hero-scrim"></div>
+                <div class="hero-content">
+                    <h1 class="hero-title">Eggy Wong</h1>
+                    <p class="hero-slogan">Ben's Egg.</p>
+                    <a class="hero-now"
+                       href="#"
+                       data-now-items='["在西雅图拍樱花，整理冬天的底片","在读一本关于海洋的书","在学煮一锅合格的白米饭","在想要不要养只猫","最近一篇：《Idylwood Beach Park》 · Idylwood Beach Park · Redmond, WA"]'
+                       data-latest-url="/2026/04/05/2026-04-05-idylwood-beach-park/"
+                       data-latest-index="4">
+                        <span class="hero-now__label">Now</span>
+                        <span class="hero-now__text">在西雅图拍樱花，整理冬天的底片</span>
+                    </a>
+                </div>
             </article>
             <!-- Main first e-->
         </div>
+        <style>
+        .hero-panel {
+            padding: 0 !important;
+            overflow: hidden;
+            border-radius: 0 0 14px 14px;
+            height: 22em;
+            position: relative;
+            background: #1a1a1a !important;
+        }
+        .hero-panel:hover .hero-bg { transform: scale(1.03); }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform .6s ease;
+        }
+        .hero-scrim {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.15) 100%);
+        }
+        .hero-content {
+            position: absolute;
+            left: 2.4em;
+            right: 2.4em;
+            bottom: 2em;
+            max-width: 36em;
+        }
+        .hero-title {
+            font-size: 3.4rem;
+            line-height: 1.05;
+            margin: 0 0 0.2em;
+            color: #fff;
+            text-transform: capitalize;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 16px rgba(0,0,0,0.25);
+            width: fit-content;
+            transition: transform .2s ease;
+        }
+        .hero-title:hover { transform: translateX(0.5rem); }
+        .hero-slogan {
+            font-size: 1.15rem;
+            line-height: 1.5;
+            margin: 0 0 1.4em;
+            color: rgba(255,255,255,0.88);
+            font-family: Georgia, serif;
+            font-style: italic;
+            width: fit-content;
+            transition: transform .2s ease, color .18s ease;
+        }
+        .hero-slogan:hover {
+            transform: translateX(0.35rem);
+            color: #fff;
+        }
+        .hero-now {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.9em;
+            padding: 0;
+            background: none;
+            border: 0;
+            max-width: 100%;
+            text-decoration: none;
+            color: inherit;
+            border-bottom: 0;
+            cursor: default;
+        }
+        .hero-now__label {
+            position: relative;
+            padding-right: 0.9em;
+        }
+        .hero-now__label::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 1px;
+            height: 0.9em;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.35);
+        }
+        .hero-now.is-link { cursor: pointer; }
+        .hero-now.is-link:hover .hero-now__text {
+            color: #ffd27a;
+        }
+        .hero-now__label {
+            font-family: Georgia, serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #ffd27a;
+            flex-shrink: 0;
+        }
+        .hero-now__text {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.92);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: opacity .4s ease, transform .2s ease, color .18s ease;
+        }
+        .hero-now:hover .hero-now__text { transform: translateX(0.35rem); }
+        .hero-now__text.is-fading { opacity: 0; }
+        @media screen and (max-width: 736px) {
+            .hero-panel { height: 18em; border-radius: 0 0 12px 12px; }
+            .hero-content { left: 1.2em; right: 1.2em; bottom: 1.2em; }
+            .hero-title { font-size: 2.2rem; }
+            .hero-slogan { font-size: 1rem; margin-bottom: 1em; }
+            .hero-now__text { font-size: 0.82rem; }
+        }
+        </style>
+        <script>
+        (function(){
+          var root = document.querySelector('.hero-now');
+          if (!root) return;
+          var textEl = root.querySelector('.hero-now__text');
+          var raw = root.getAttribute('data-now-items') || '[]';
+          var items;
+          try { items = JSON.parse(raw); } catch (e) { items = []; }
+          var latestUrl = root.getAttribute('data-latest-url') || '';
+          var latestIdx = parseInt(root.getAttribute('data-latest-index') || '-1', 10);
+          function apply(i){
+            textEl.textContent = items[i];
+            if (latestUrl && i === latestIdx) {
+              root.setAttribute('href', latestUrl);
+              root.classList.add('is-link');
+            } else {
+              root.setAttribute('href', '#');
+              root.classList.remove('is-link');
+            }
+          }
+          root.addEventListener('click', function(e){
+            if (!root.classList.contains('is-link')) e.preventDefault();
+          });
+          if (!Array.isArray(items) || items.length === 0) return;
+          var idx = Math.floor(Math.random() * items.length);
+          apply(idx);
+          if (items.length < 2) return;
+          var hovering = false;
+          root.addEventListener('mouseenter', function(){ hovering = true; });
+          root.addEventListener('mouseleave', function(){ hovering = false; });
+          var wheelAt = 0;
+          root.addEventListener('wheel', function(e){
+            e.preventDefault();
+            var now = Date.now();
+            if (now - wheelAt < 120) return;
+            wheelAt = now;
+            var dir = e.deltaY > 0 ? 1 : -1;
+            idx = (idx + dir + items.length) % items.length;
+            apply(idx);
+          }, { passive: false });
+          setInterval(function(){
+            if (hovering && root.classList.contains('is-link')) return;
+            textEl.classList.add('is-fading');
+            setTimeout(function(){
+              idx = (idx + 1) % items.length;
+              apply(idx);
+              textEl.classList.remove('is-fading');
+            }, 400);
+          }, 5000);
+        })();
+        </script>
             
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -561,12 +731,14 @@
   try { regions = JSON.parse(document.getElementById('home-map-regions').textContent); } catch(e){ regions = {}; }
 
   var map = L.map(el, {
-    scrollWheelZoom: true,
+    scrollWheelZoom: false,
     zoomControl: false,
     minZoom: 2,
     maxZoom: 19,
     worldCopyJump: true
   });
+  el.addEventListener('click', function(){ map.scrollWheelZoom.enable(); });
+  el.addEventListener('mouseleave', function(){ map.scrollWheelZoom.disable(); });
   map.attributionControl.setPrefix('');
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '© <a target="_blank" rel="noopener" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · <a target="_blank" rel="noopener" href="https://carto.com/attributions">CARTO</a>',

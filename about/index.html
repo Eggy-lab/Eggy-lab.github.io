@@ -259,7 +259,9 @@
                   var hasLoc = false;
                   var coords = hasLoc ? [0, 0] : [39.5, -98.35];
                   var zoom = hasLoc ? 15 : 4;
-                  var map = L.map(el, { center: coords, zoom: zoom, scrollWheelZoom: true, zoomControl: false });
+                  var map = L.map(el, { center: coords, zoom: zoom, scrollWheelZoom: false, zoomControl: false });
+                  el.addEventListener('click', function(){ map.scrollWheelZoom.enable(); });
+                  el.addEventListener('mouseleave', function(){ map.scrollWheelZoom.disable(); });
                   map.attributionControl.setPrefix('');
                   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
                     attribution: '© <a target="_blank" rel="noopener" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · <a target="_blank" rel="noopener" href="https://carto.com/attributions">CARTO</a>',

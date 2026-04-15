@@ -241,7 +241,7 @@
         <div id="main" >
 	    <!--style="height: 25rem; 等于高度400px左右，就算没设背景图也会撑出这么大块空白。所以可以加判断，没有图片的时候就不在开头加这么大空白-->
 	    
-                <div class="post_page_title_img" style="height: 25rem;background-image: url(/images/20260405/B0018669HEIC1775409746.JPG);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <div class="post_page_title_img" style="height: 25rem;background-image: url(/images/20260405/B0018669HEIC1775409746.JPG);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;border-radius: 0 0 14px 14px;" >
                     <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Idylwood Beach Park</h2></a>
                 </div>
             
@@ -715,7 +715,9 @@ body { color: #eaeaea; }
                   var hasLoc = true;
                   var coords = hasLoc ? [47.64272, -122.10304] : [39.5, -98.35];
                   var zoom = hasLoc ? 15 : 4;
-                  var map = L.map(el, { center: coords, zoom: zoom, scrollWheelZoom: true, zoomControl: false });
+                  var map = L.map(el, { center: coords, zoom: zoom, scrollWheelZoom: false, zoomControl: false });
+                  el.addEventListener('click', function(){ map.scrollWheelZoom.enable(); });
+                  el.addEventListener('mouseleave', function(){ map.scrollWheelZoom.disable(); });
                   map.attributionControl.setPrefix('');
                   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
                     attribution: '© <a target="_blank" rel="noopener" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · <a target="_blank" rel="noopener" href="https://carto.com/attributions">CARTO</a>',
