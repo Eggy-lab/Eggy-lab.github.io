@@ -172,18 +172,594 @@
             </article>
             <!-- Main first e-->
         </div>
+            
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+.home-map-section {
+  padding: 3rem 0 3rem;
+  color: #eaeaea;
+  background: transparent;
+}
+.home-map-wrap {
+  width: 72em;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+.home-map-sidebar {
+  flex: 0 0 180px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background: rgba(20, 22, 28, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 2px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  min-height: 0;
+  overflow: hidden;
+}
+.home-map-sidebar .hm-sidebar-head {
+  flex: 0 0 auto;
+  padding: 1.2rem 0.9rem 0.5rem;
+}
+.home-map-sidebar .hm-sidebar-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 0.9rem 0.9rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.12) transparent;
+}
+.home-map-sidebar .hm-sidebar-scroll::-webkit-scrollbar { width: 6px; }
+.home-map-sidebar .hm-sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
+.home-map-sidebar .hm-sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+}
+.home-map-sidebar .hm-sidebar-scroll::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+.home-map-sidebar .hm-sidebar-label {
+  font-family: "SF Pro SC", "SF Pro Display", "SF Pro Text", "PingFang SC", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #6a6a6a;
+  margin-bottom: 0.8rem;
+  padding-left: 0.1rem;
+}
+
+/* "All" link at top of sidebar */
+.home-map-sidebar > .hm-item-all {
+  margin-bottom: 0.4rem;
+}
+
+.home-map-sidebar a.hm-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "SF Pro SC", "SF Pro Display", "SF Pro Text", "PingFang SC", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: #b8b8b8;
+  padding: 0.38rem 0.1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, padding-left 0.2s;
+}
+.home-map-sidebar a.hm-item-all {
+  align-items: flex-start;
+}
+.home-map-sidebar a.hm-item-all {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  padding: 0.55rem 0.1rem;
+}
+.home-map-sidebar a.hm-item-all .hm-count {
+  font-size: 0.65rem !important;
+  padding-top: 0.25rem !important;
+}
+.home-map-sidebar a.hm-item .hm-name { line-height: 1.25; }
+.home-map-sidebar a.hm-item .hm-sub {
+  display: inline;
+  font-size: 0.52rem;
+  color: #7a7a7a;
+  letter-spacing: 0.02em;
+  margin-left: 0.15rem;
+}
+.home-map-sidebar a.hm-item.active .hm-sub { color: rgba(245,179,1,0.7); }
+.home-map-sidebar a.hm-item .hm-count {
+  font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  font-size: 0.55rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: #5a5a5a;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.home-map-sidebar a.hm-item-all .hm-count {
+  margin-left: 0.6rem;
+  padding-top: 0.25rem;
+}
+.home-map-sidebar a.hm-item:hover {
+  color: #f5b301 !important;
+  padding-left: 0.35rem;
+  border-bottom-color: rgba(245,179,1,0.25);
+}
+.home-map-sidebar a.hm-item:hover .hm-sub { color: rgba(245,179,1,0.7) !important; }
+.home-map-sidebar a.hm-item:hover .hm-count { color: rgba(245,179,1,0.6) !important; }
+.home-map-sidebar a.hm-item.active {
+  color: #f5b301 !important;
+  border-bottom-color: rgba(245,179,1,0.5);
+}
+.home-map-sidebar a.hm-item.active .hm-count { color: rgba(245,179,1,0.6); }
+
+/* Groups (collapsible) */
+.home-map-sidebar .hm-group {
+  margin-top: 0.7rem;
+}
+.home-map-sidebar .hm-group:first-of-type { margin-top: 0.4rem; }
+.home-map-sidebar .hm-group > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.35rem 0.1rem 0.4rem;
+  font-family: "SF Pro SC", "PingFang SC", -apple-system, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: #c8c8c8;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 0.25rem;
+  transition: color 0.2s, border-color 0.2s, padding-left 0.2s;
+}
+.home-map-sidebar .hm-group > summary:hover {
+  color: #f5b301;
+  padding-left: 0.35rem;
+  border-bottom-color: rgba(245,179,1,0.25);
+}
+.home-map-sidebar .hm-group > summary::-webkit-details-marker { display: none; }
+.home-map-sidebar .hm-group > summary::marker { content: ""; }
+.home-map-sidebar .hm-group > summary .hm-group-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.home-map-sidebar .hm-group > summary .hm-group-count {
+  font-size: 0.55rem;
+  font-weight: 300;
+  color: #4a4a4a;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+.home-map-sidebar .hm-group > summary .hm-chevron {
+  display: inline-block;
+  font-size: 0.55rem;
+  color: #5a5a5a;
+  transition: transform 0.25s ease;
+  line-height: 1;
+}
+.home-map-sidebar .hm-group[open] > summary .hm-chevron { transform: rotate(180deg); }
+
+.home-map-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.home-map-section .hm-label {
+  font-family: Georgia, serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: #8a8a8a;
+  margin-bottom: 1.6rem;
+  text-align: center;
+}
+.home-map-section .hm-label::before,
+.home-map-section .hm-label::after {
+  content: ""; display: inline-block; width: 22px; height: 1px;
+  background: #3a3a3a; vertical-align: middle; margin: 0 0.9em;
+}
+.home-map-section #home-map {
+  width: 100%;
+  height: 400px;
+  margin: 0 auto;
+  border: 1px solid #2a2a2a;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  filter: brightness(1.35) saturate(0.95);
+  border-radius: 2px;
+}
+.home-map-section .home-map-wrap { height: 400px; }
+.home-map-section .leaflet-container { background: #0f1115; }
+.home-map-section .leaflet-control-attribution {
+  background: transparent !important;
+  color: rgba(200,200,200,0.35) !important;
+  font-size: 0.42rem !important;
+  padding: 1px 4px !important;
+  text-shadow: 0 0 4px rgba(0,0,0,0.6);
+}
+.home-map-section .leaflet-control-attribution a {
+  color: rgba(200,200,200,0.5) !important;
+  text-decoration: none;
+}
+.home-map-section .leaflet-control-attribution a:hover { color: rgba(245,179,1,0.8) !important; }
+.home-map-section .leaflet-popup-content-wrapper {
+  background: rgba(20,22,28,0.95);
+  color: #eaeaea;
+  border-radius: 2px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+.home-map-section .leaflet-popup-tip { background: rgba(20,22,28,0.95); }
+.home-map-section .leaflet-popup-content {
+  margin: 10px 14px;
+  font-family: Georgia, serif;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+.home-map-section .leaflet-popup-content a {
+  color: #f5b301;
+  text-decoration: none;
+  font-style: italic;
+}
+.home-map-section .leaflet-popup-content .pop-place {
+  color: #9a9a9a;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  margin-top: 3px;
+}
+.home-map-section .leaflet-popup-content .pop-date {
+  color: #6a6a6a;
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  margin-top: 4px;
+  font-family: Georgia, serif;
+}
+
+@media screen and (max-width: 1100px) {
+  .home-map-wrap { width: 90%; }
+}
+@media screen and (max-width: 736px) {
+  .home-map-wrap { flex-direction: column; gap: 1rem; width: 92%; }
+  .home-map-sidebar { flex: 0 0 auto; padding: 0.8rem; }
+  .home-map-sidebar details > summary { padding-top: 0.5rem; }
+}
+</style>
+
+<section class="home-map-section">
+  <div class="hm-label" id="home-map-title">Places</div>
+  <div class="home-map-wrap">
+    <aside class="home-map-sidebar">
+      <div class="hm-sidebar-head">
+        <div class="hm-sidebar-label">Regions</div>
+        <a href="#all" data-region="all" class="hm-item hm-item-all active">
+          <span class="hm-name">全部</span>
+          <span class="hm-count">4</span>
+        </a>
+      </div>
+      <div class="hm-sidebar-scroll">
+      
+        <details class="hm-group" data-group-key="north_america">
+          <summary>
+            <span>北美洲</span>
+            <span class="hm-group-right">
+              <span class="hm-group-count">2</span>
+              <span class="hm-chevron">▾</span>
+            </span>
+          </summary>
+          
+            <a href="#us-mainland" data-region="us-mainland" data-count="2" class="hm-item">
+              <span class="hm-name">美国本土</span>
+              <span class="hm-count">2</span>
+            </a>
+          
+            <a href="#alaska" data-region="alaska" data-count="0" class="hm-item">
+              <span class="hm-name">阿拉斯加<span class="hm-sub">（美国）</span></span>
+              <span class="hm-count">0</span>
+            </a>
+          
+            <a href="#hawaii" data-region="hawaii" data-count="0" class="hm-item">
+              <span class="hm-name">夏威夷<span class="hm-sub">（美国）</span></span>
+              <span class="hm-count">0</span>
+            </a>
+          
+        </details>
+      
+        <details class="hm-group" data-group-key="europe">
+          <summary>
+            <span>欧洲</span>
+            <span class="hm-group-right">
+              <span class="hm-group-count">0</span>
+              <span class="hm-chevron">▾</span>
+            </span>
+          </summary>
+          
+            <a href="#italy" data-region="italy" data-count="0" class="hm-item">
+              <span class="hm-name">意大利</span>
+              <span class="hm-count">0</span>
+            </a>
+          
+            <a href="#switzerland" data-region="switzerland" data-count="0" class="hm-item">
+              <span class="hm-name">瑞士</span>
+              <span class="hm-count">0</span>
+            </a>
+          
+            <a href="#norway" data-region="norway" data-count="0" class="hm-item">
+              <span class="hm-name">挪威</span>
+              <span class="hm-count">0</span>
+            </a>
+          
+            <a href="#iceland" data-region="iceland" data-count="0" class="hm-item">
+              <span class="hm-name">冰岛</span>
+              <span class="hm-count">0</span>
+            </a>
+          
+        </details>
+      
+        <details class="hm-group" data-group-key="asia">
+          <summary>
+            <span>亚洲</span>
+            <span class="hm-group-right">
+              <span class="hm-group-count">1</span>
+              <span class="hm-chevron">▾</span>
+            </span>
+          </summary>
+          
+            <a href="#china" data-region="china" data-count="1" class="hm-item">
+              <span class="hm-name">中国</span>
+              <span class="hm-count">1</span>
+            </a>
+          
+            <a href="#japan" data-region="japan" data-count="0" class="hm-item">
+              <span class="hm-name">日本</span>
+              <span class="hm-count">0</span>
+            </a>
+          
+            <a href="#korea" data-region="korea" data-count="0" class="hm-item">
+              <span class="hm-name">韩国</span>
+              <span class="hm-count">0</span>
+            </a>
+          
+            <a href="#singapore" data-region="singapore" data-count="0" class="hm-item">
+              <span class="hm-name">新加坡</span>
+              <span class="hm-count">0</span>
+            </a>
+          
+        </details>
+      
+      </div>
+    </aside>
+    <div class="home-map-main">
+      <div id="home-map"></div>
+    </div>
+  </div>
+</section>
+
+<script id="home-map-data" type="application/json">[{"lat":47.64272,"lng":-122.10304,"title":"Idylwood Beach Park","place":"Idylwood Beach Park · Redmond, WA","date":"2026-04-05","url":"/2026/04/05/2026-04-05-idylwood-beach-park/","region":"us-mainland"},{"lat":38.0430144,"lng":114.5196765,"title":"Childhood Memories","place":"棉三生活区 · 石家庄，河北","date":"2026-03-20","url":"/2026/03/20/2026-03-20-childhood-memories/","region":"china"},{"lat":47.6097,"lng":-122.3422,"title":"First Time in Seattle","place":"Pike Place Market · Seattle, WA","date":"2025-05-04","url":"/2025/05/04/2025-05-04-first-time-in-seattle/","region":"us-mainland"}]</script>
+<script id="home-map-regions" type="application/json">{"us-mainland":{"key":"us-mainland","name":"美国本土","bbox":[-125,-66,24,50],"geo":{"type":"us-state-except","exclude":["Alaska","Hawaii","Puerto Rico"]}},"alaska":{"key":"alaska","name":"阿拉斯加（美国）","bbox":[-170,-130,51,72],"geo":{"type":"us-state","name":"Alaska"}},"hawaii":{"key":"hawaii","name":"夏威夷（美国）","bbox":[-161,-154,18,23],"geo":{"type":"us-state","name":"Hawaii"}},"italy":{"key":"italy","name":"意大利","bbox":[6.6,18.6,36.6,47.1],"geo":{"type":"country","id":"ITA"}},"switzerland":{"key":"switzerland","name":"瑞士","bbox":[5.9,10.5,45.8,47.9],"geo":{"type":"country","id":"CHE"}},"norway":{"key":"norway","name":"挪威","bbox":[4,31,57.5,71.5],"geo":{"type":"country","id":"NOR"}},"iceland":{"key":"iceland","name":"冰岛","bbox":[-24.6,-13.3,63.2,66.6],"geo":{"type":"country","id":"ISL"}},"china":{"key":"china","name":"中国","bbox":[73,135,18,54],"geo":{"type":"country","id":"CHN"}},"japan":{"key":"japan","name":"日本","bbox":[122,146,24,46],"geo":{"type":"country","id":"JPN"}},"korea":{"key":"korea","name":"韩国","bbox":[124,131,33,39],"geo":{"type":"country","id":"KOR"}},"singapore":{"key":"singapore","name":"新加坡","bbox":[103.5,104.2,1.1,1.5],"geo":{"type":"country","id":"SGP"}}}</script>
+
+<script>
+(function(){
+  if (typeof L === 'undefined') return;
+  var el = document.getElementById('home-map');
+  if (!el) return;
+  var points, regions;
+  try { points = JSON.parse(document.getElementById('home-map-data').textContent); } catch(e){ return; }
+  try { regions = JSON.parse(document.getElementById('home-map-regions').textContent); } catch(e){ regions = {}; }
+
+  var map = L.map(el, {
+    scrollWheelZoom: true,
+    zoomControl: false,
+    minZoom: 2,
+    maxZoom: 19,
+    worldCopyJump: true
+  });
+  map.attributionControl.setPrefix('');
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© <a target="_blank" rel="noopener" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · <a target="_blank" rel="noopener" href="https://carto.com/attributions">CARTO</a>',
+    maxZoom: 19
+  }).addTo(map);
+
+  var icon = L.divIcon({
+    className: 'custom-pin',
+    html: '<div style="width:12px;height:12px;border-radius:50%;background:#f5b301;box-shadow:0 0 0 3px rgba(245,179,1,0.25),0 0 16px rgba(245,179,1,0.6);"></div>',
+    iconSize: [12,12], iconAnchor: [6,6]
+  });
+
+  var regionLayers = {};
+  var activeRegionKey = null;
+
+  function baseStyle() { return { color: '#6a6a6a', weight: 1, opacity: 0.45, fillOpacity: 0, interactive: false }; }
+  function activeStyle() { return { color: '#8a8a8a', weight: 1, opacity: 0.7, fillOpacity: 0, interactive: false }; }
+
+  function styleRegions(activeKey) {
+    activeRegionKey = activeKey;
+    Object.keys(regionLayers).forEach(function(k){
+      var layer = regionLayers[k];
+      if (!layer) return;
+      layer.setStyle(k === activeKey ? activeStyle() : baseStyle());
+      if (k === activeKey && layer.bringToFront) layer.bringToFront();
+    });
+  }
+
+  function countryCode(f) {
+    if (f.id) return f.id;
+    var p = f.properties || {};
+    return p['ISO3166-1-Alpha-3'] || p.ISO_A3 || p.iso_a3 || p.ADM0_A3 || p.adm0_a3 || null;
+  }
+  function pickFeatures(geo, countries, states) {
+    if (!geo) return [];
+    if (geo.type === 'country') return countries.features.filter(function(f){ return countryCode(f) === geo.id; });
+    if (geo.type === 'countries') return countries.features.filter(function(f){ return geo.ids.indexOf(countryCode(f)) >= 0; });
+    if (geo.type === 'us-state') return states.features.filter(function(f){ return f.properties && f.properties.name === geo.name; });
+    if (geo.type === 'us-state-except') {
+      var ex = geo.exclude || [];
+      return states.features.filter(function(f){
+        var n = f.properties && f.properties.name;
+        return n && ex.indexOf(n) < 0;
+      });
+    }
+    return [];
+  }
+
+  var needCountries = Object.keys(regions).some(function(k){ var t = regions[k].geo && regions[k].geo.type; return t === 'country' || t === 'countries'; });
+  var needStates = Object.keys(regions).some(function(k){ var t = regions[k].geo && regions[k].geo.type; return t === 'us-state' || t === 'us-state-except'; });
+  var fetches = [];
+  fetches.push(needCountries ? fetch('https://cdn.jsdelivr.net/gh/datasets/geo-countries@master/data/countries.geojson').then(function(r){ return r.json(); }) : Promise.resolve(null));
+  fetches.push(needStates ? fetch('https://cdn.jsdelivr.net/gh/PublicaMundi/MappingAPI@master/data/geojson/us-states.json').then(function(r){ return r.json(); }) : Promise.resolve(null));
+
+  Promise.all(fetches).then(function(data){
+    var countries = data[0], states = data[1];
+    Object.keys(regions).forEach(function(k){
+      var feats = pickFeatures(regions[k].geo, countries || {features:[]}, states || {features:[]});
+      if (feats.length) {
+        regionLayers[k] = L.geoJSON({type:'FeatureCollection', features: feats}, { style: baseStyle() }).addTo(map);
+      }
+    });
+    styleRegions(activeRegionKey);
+  }).catch(function(){});
+
+  var markers = points.map(function(p){
+    var m = L.marker([p.lat, p.lng], {icon: icon});
+    var html = '<a href="' + p.url + '">' + p.title + '</a>';
+    if (p.place) html += '<div class="pop-place">' + p.place + '</div>';
+    if (p.date) html += '<div class="pop-date">' + p.date + '</div>';
+    m.bindPopup(html, {closeButton: false, offset: [0,-4]});
+    var closeTimer;
+    var cancelClose = function(){ if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; } };
+    var scheduleClose = function(){ cancelClose(); closeTimer = setTimeout(function(){ m.closePopup(); }, 120); };
+    m.on('mouseover', function(){ cancelClose(); m.openPopup(); });
+    m.on('mouseout', scheduleClose);
+    m.on('popupopen', function(e){
+      var el = e.popup.getElement();
+      if (!el) return;
+      el.addEventListener('mouseenter', cancelClose);
+      el.addEventListener('mouseleave', scheduleClose);
+    });
+    return { marker: m, data: p };
+  });
+
+  var hasView = false;
+  function applyRegion(key) {
+    if (key !== 'all' && !regions[key]) key = 'all';
+    var visible = [];
+    markers.forEach(function(item){
+      var show = (key === 'all') || (item.data.region === key);
+      if (show) {
+        item.marker.addTo(map);
+        visible.push([item.data.lat, item.data.lng]);
+      } else {
+        map.removeLayer(item.marker);
+      }
+    });
+
+    var animate = hasView;
+    var animOpts = { animate: animate, duration: 1.4, easeLinearity: 0.25 };
+    if (key === 'all') {
+      if (visible.length === 1) map.setView(visible[0], 11, animOpts);
+      else if (visible.length > 1) map.fitBounds(visible, Object.assign({ padding:[40,40], maxZoom: 10 }, animOpts));
+      else map.setView([20, 0], 2, animOpts);
+    } else {
+      var b = regions[key].bbox;
+      var bnds = [[b[2], b[0]], [b[3], b[1]]];
+      map.fitBounds(bnds, Object.assign({ padding: [20,20] }, animOpts));
+    }
+    hasView = true;
+
+    styleRegions((key === 'all') ? null : key);
+
+    var title = document.getElementById('home-map-title');
+    if (title) title.textContent = key === 'all' ? 'Places' : regions[key].name;
+
+    document.querySelectorAll('.home-map-sidebar a.hm-item').forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('data-region') === key);
+    });
+    document.querySelectorAll('[data-post-region]').forEach(function(card){
+      var cr = card.getAttribute('data-post-region');
+      card.style.display = (key === 'all' || cr === key) ? '' : 'none';
+    });
+
+    var hasCards = Array.from(document.querySelectorAll('[data-post-region]'))
+      .some(function(c){ return c.style.display !== 'none'; });
+    var emptyEl = document.getElementById('region-empty');
+    if (emptyEl) emptyEl.style.display = hasCards ? 'none' : '';
+    document.querySelectorAll('#main > .link_container').forEach(function(lc){
+      lc.style.display = hasCards ? '' : 'none';
+    });
+  }
+
+  function readHash() {
+    var h = (location.hash || '').replace(/^#/, '');
+    return h && (h === 'all' || regions[h]) ? h : 'all';
+  }
+
+  document.querySelectorAll('.home-map-sidebar a.hm-item').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var key = a.getAttribute('data-region');
+      history.replaceState(null, '', '#' + key);
+      applyRegion(key);
+      e.preventDefault();
+    });
+  });
+  window.addEventListener('hashchange', function(){ applyRegion(readHash()); });
+
+  applyRegion(readHash());
+})();
+</script>
+
 
         
         <!-- 文章列表   s -->
+        <style>
+        .home-posts-label {
+          font-family: Georgia, serif;
+          font-size: 0.7rem;
+          letter-spacing: 0.5em;
+          text-transform: uppercase;
+          color: #8a8a8a;
+          text-align: center;
+          margin: 0 0 1.2rem !important;
+          padding: 3rem 1rem 0 !important;
+          background: transparent !important;
+        }
+        .home-posts-label::before,
+        .home-posts-label::after {
+          content: ""; display: inline-block; width: 22px; height: 1px;
+          background: #3a3a3a; vertical-align: middle; margin: 0 0.9em;
+        }
+        #main > .link_container {
+          border-top: 0 !important;
+          margin-top: 0 !important;
+          padding-top: 0 !important;
+        }
+        #main > .link_container > .link_row { margin-top: 0 !important; padding-top: 0 !important; }
+        #main > .link_container > .link_row > * { margin-top: 0 !important; padding-top: 0 !important; }
+        #main > .link_container > .link_row > * > .link_box { margin-top: 0 !important; }
+        </style>
         <div id="main" style="background-color: transparent; padding:0;">
+        <div class="home-posts-label">Posts</div>
         <section class="link_container" style="margin-top: 0; background-color: transparent; ">
             <div class="link_row">
                 <!-- 文章sample  s-->
 
                 
-                <div class="6u 12u(narrower)">
+                
+                <div class="6u 12u(narrower)" data-post-region="us-mainland">
                     <section class="link_box special">
-                       <a href="/2026/04/05/0412-screenshot/">
+                       <a href="/2026/04/05/2026-04-05-idylwood-beach-park/">
                         <div class="page_title" style="background-image: url(/images/20260405/B0018669HEIC1775409746.JPG);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover; border-top-left-radius: 6px; border-top-right-radius: 6px;">
                             <!--标题-->
                             <h2 class="page_title_text"> Idylwood Beach Park </h2>
@@ -209,9 +785,9 @@
                 </div>
                 <!-- 文章sample  e-->
             
-                <div class="6u 12u(narrower)">
+                <div class="6u 12u(narrower)" data-post-region="china">
                     <section class="link_box special">
-                       <a href="/2026/03/20/childhood-memories/">
+                       <a href="/2026/03/20/2026-03-20-childhood-memories/">
                         <div class="page_title" style="background-image: url(/images/20260320/B0017731HEIC1773978334.JPG);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover; border-top-left-radius: 6px; border-top-right-radius: 6px;">
                             <!--标题-->
                             <h2 class="page_title_text"> Childhood Memories </h2>
@@ -237,9 +813,9 @@
                 </div>
                 <!-- 文章sample  e-->
             
-                <div class="6u 12u(narrower)">
+                <div class="6u 12u(narrower)" data-post-region="">
                     <section class="link_box special">
-                       <a href="/2025/06/26/Sunset-in-Seattle/">
+                       <a href="/2025/06/26/2025-06-26-sunset-in-seattle/">
                         <div class="page_title" style="background-image: url(/images/IMG_4781.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover; border-top-left-radius: 6px; border-top-right-radius: 6px;">
                             <!--标题-->
                             <h2 class="page_title_text"> Sunset in Seattle </h2>
@@ -265,12 +841,12 @@
                 </div>
                 <!-- 文章sample  e-->
             
-                <div class="6u 12u(narrower)">
+                <div class="6u 12u(narrower)" data-post-region="us-mainland">
                     <section class="link_box special">
-                       <a href="/2025/05/04/0504inSeattle/">
+                       <a href="/2025/05/04/2025-05-04-first-time-in-seattle/">
                         <div class="page_title" style="background-image: url(/images/20250504/B00137833FR1746364620.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover; border-top-left-radius: 6px; border-top-right-radius: 6px;">
                             <!--标题-->
-                            <h2 class="page_title_text"> First time in Seattle </h2>
+                            <h2 class="page_title_text"> First Time in Seattle </h2>
                             <!--段落-->
                         </div>
                         </a>
@@ -295,6 +871,7 @@
             
             </div>
         </section>
+        <div id="region-empty" style="display:none; text-align:center; color:#6a6a6a; font-family:Georgia,serif; font-size:0.9rem; letter-spacing:0.1em; padding:3rem 1rem 5rem; border-top:0 !important; background:transparent;">该区域暂无文章</div>
         </div>
         <!-- 文章列表   end -->
         <!-- Main 主要部分 end -->

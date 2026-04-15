@@ -158,15 +158,43 @@
         <!-- Main 主要部分 start -->
         
         <!-- 文章列表   s -->
+        <style>
+        .home-posts-label {
+          font-family: Georgia, serif;
+          font-size: 0.7rem;
+          letter-spacing: 0.5em;
+          text-transform: uppercase;
+          color: #8a8a8a;
+          text-align: center;
+          margin: 0 0 1.2rem !important;
+          padding: 3rem 1rem 0 !important;
+          background: transparent !important;
+        }
+        .home-posts-label::before,
+        .home-posts-label::after {
+          content: ""; display: inline-block; width: 22px; height: 1px;
+          background: #3a3a3a; vertical-align: middle; margin: 0 0.9em;
+        }
+        #main > .link_container {
+          border-top: 0 !important;
+          margin-top: 0 !important;
+          padding-top: 0 !important;
+        }
+        #main > .link_container > .link_row { margin-top: 0 !important; padding-top: 0 !important; }
+        #main > .link_container > .link_row > * { margin-top: 0 !important; padding-top: 0 !important; }
+        #main > .link_container > .link_row > * > .link_box { margin-top: 0 !important; }
+        </style>
         <div id="main" style="background-color: transparent; padding:0;">
+        <div class="home-posts-label">Posts</div>
         <section class="link_container" style="margin-top: 0; background-color: transparent; ">
             <div class="link_row">
                 <!-- 文章sample  s-->
 
                 
-                <div class="6u 12u(narrower)">
+                
+                <div class="6u 12u(narrower)" data-post-region="">
                     <section class="link_box special">
-                       <a href="/2025/06/26/Sunset-in-Seattle/">
+                       <a href="/2025/06/26/2025-06-26-sunset-in-seattle/">
                         <div class="page_title" style="background-image: url(/images/IMG_4781.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover; border-top-left-radius: 6px; border-top-right-radius: 6px;">
                             <!--标题-->
                             <h2 class="page_title_text"> Sunset in Seattle </h2>
@@ -194,6 +222,7 @@
             
             </div>
         </section>
+        <div id="region-empty" style="display:none; text-align:center; color:#6a6a6a; font-family:Georgia,serif; font-size:0.9rem; letter-spacing:0.1em; padding:3rem 1rem 5rem; border-top:0 !important; background:transparent;">该区域暂无文章</div>
         </div>
         <!-- 文章列表   end -->
         <!-- Main 主要部分 end -->

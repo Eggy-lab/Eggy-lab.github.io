@@ -107,6 +107,59 @@
 <link rel="stylesheet" href="https://unpkg.com/aplayer/dist/APlayer.min.css">
 <script src="https://unpkg.com/aplayer/dist/APlayer.min.js"></script>
 
+<!-- Leaflet (location map always shown; falls back to USA view if no location) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+.post-location {
+  padding: 3rem 1.5rem 5rem;
+  text-align: center;
+  color: #eaeaea;
+}
+.post-location .loc-label {
+  font-family: Georgia, serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: #6a6a6a;
+  margin-bottom: 0.4rem;
+}
+.post-location .loc-label::before,
+.post-location .loc-label::after {
+  content: ""; display: inline-block; width: 22px; height: 1px;
+  background: #3a3a3a; vertical-align: middle; margin: 0 0.9em;
+}
+.post-location .loc-name {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: #b5b5b5;
+  margin-bottom: 1.6rem;
+}
+.post-location .loc-map {
+  width: 100%;
+  max-width: 680px;
+  height: 320px;
+  margin: 0 auto;
+  border: 1px solid #2a2a2a;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  filter: brightness(1.35) saturate(0.95);
+}
+.post-location .leaflet-container { background: #0f1115; }
+.post-location .leaflet-control-attribution {
+  background: transparent !important;
+  color: rgba(200,200,200,0.35) !important;
+  font-size: 0.42rem !important;
+  padding: 1px 4px !important;
+  text-shadow: 0 0 4px rgba(0,0,0,0.6);
+}
+.post-location .leaflet-control-attribution a {
+  color: rgba(200,200,200,0.5) !important;
+  text-decoration: none;
+}
+.post-location .leaflet-control-attribution a:hover { color: rgba(245,179,1,0.8) !important; }
+</style>
+
 <!-- 文章页 -->
 <body class="is-loading">
     <!-- Wrapper 外包 s-->
@@ -192,6 +245,43 @@
             <div class="typo" style="padding: 3rem;">
                 <p>My name is Eggy!!!!!!</p>
 
+                
+                <div class="post-location" id="post-location">
+                  <div class="loc-label">Location</div>
+                  
+                  <div class="loc-map" id="post-location-map"></div>
+                </div>
+                <script>
+                (function(){
+                  if (typeof L === 'undefined') return;
+                  var el = document.getElementById('post-location-map');
+                  if (!el) return;
+                  var hasLoc = false;
+                  var coords = hasLoc ? [0, 0] : [39.5, -98.35];
+                  var zoom = hasLoc ? 15 : 4;
+                  var map = L.map(el, { center: coords, zoom: zoom, scrollWheelZoom: true, zoomControl: false });
+                  map.attributionControl.setPrefix('');
+                  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                    attribution: '© <a target="_blank" rel="noopener" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · <a target="_blank" rel="noopener" href="https://carto.com/attributions">CARTO</a>',
+                    maxZoom: 19
+                  }).addTo(map);
+                  if (hasLoc) {
+                    var icon = L.divIcon({
+                      className: 'custom-pin',
+                      html: '<div style="width:14px;height:14px;border-radius:50%;background:#f5b301;box-shadow:0 0 0 4px rgba(245,179,1,0.25),0 0 20px rgba(245,179,1,0.6);"></div>',
+                      iconSize: [14,14], iconAnchor: [7,7]
+                    });
+                    L.marker(coords, {icon: icon}).addTo(map);
+                  }
+                  // Move map before reviews if reviews exist
+                  var reviews = document.querySelector('.stage-reviews');
+                  var loc = document.getElementById('post-location');
+                  if (reviews && loc && loc.compareDocumentPosition(reviews) & Node.DOCUMENT_POSITION_PRECEDING) {
+                    reviews.parentNode.insertBefore(loc, reviews);
+                    map.invalidateSize();
+                  }
+                })();
+                </script>
             </div>
 
         </div>
