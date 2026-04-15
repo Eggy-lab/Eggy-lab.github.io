@@ -170,17 +170,25 @@
         <header id="header">
     <a href="/" class="logo">Eggy</a>
 </header>
+<script>
+(function(){
+  var logo = document.querySelector('#header .logo');
+  if (!logo) return;
+  var text = logo.textContent;
+  logo.innerHTML = text.replace(/g/gi, '<span class="g-egg">$&</span>');
+})();
+</script>
         <!-- Nav 导航条 start -->
         <nav id="nav" class="special" >
             <ul class="menu links" >
 			<!-- Homepage  主页  --> 
 			<li >
-	            <a href="/" rel="nofollow">主页</a>
+	            <a href="/" rel="nofollow">Home</a>
 	        </li>
 			<!-- categories_name  分类   --> 
 	        
-	        <li class="active">
-	            <a href="#s1">分类</a>
+	        <li>
+	            <a href="#s1">Categories</a>
 	                    <ul class="submenu">
 	                        <li>
 	                        
@@ -193,26 +201,26 @@
 		        <!-- Pages 自定义   -->
 		        
 		        <li>
-		            <a href="/about/" title="简历">
-		                简历
+		            <a href="/about/" title="About">
+		                About
 		            </a>
 		        </li>
 		        
 		        <li>
-		            <a href="/group/" title="团队">
-		                团队
+		            <a href="/group/" title="Team">
+		                Team
 		            </a>
 		        </li>
 		        
 		        <li>
-		            <a href="/gallery/" title="图库">
-		                图库
+		            <a href="/gallery/" title="Gallery">
+		                Gallery
 		            </a>
 		        </li>
 		        
 		        <li>
-		            <a href="/tag/" title="标签">
-		                标签
+		            <a href="/tag/" title="Tags">
+		                Tags
 		            </a>
 		        </li>
 		        
@@ -220,6 +228,33 @@
 
             </ul>
             <!-- icons 图标   -->
+            <script>
+            (function(){
+              var path = location.pathname.replace(/\/+$/, '') || '/';
+              var links = document.querySelectorAll('#nav ul.links li a[href]');
+              var bestLen = 0, bestEl = null;
+              links.forEach(function(a){
+                var raw = a.getAttribute('href') || '';
+                if (raw.charAt(0) === '#') return; // 跳过 #s1 这类锚点
+                var href;
+                try { href = new URL(a.href).pathname.replace(/\/+$/, '') || '/'; }
+                catch(e){ return; }
+                if (href === '/' || href === '') return;
+                if (path === href || path.indexOf(href + '/') === 0) {
+                  if (href.length > bestLen) { bestLen = href.length; bestEl = a; }
+                }
+              });
+              if (!bestEl && path === '/') {
+                links.forEach(function(a){
+                  try {
+                    var p = new URL(a.href).pathname.replace(/\/+$/, '') || '/';
+                    if (p === '/') bestEl = a;
+                  } catch(e){}
+                });
+              }
+              if (bestEl) bestEl.classList.add('is-current');
+            })();
+            </script>
 			<ul class="icons">
                     
                     <li>

@@ -74,31 +74,76 @@
     <div id="wrapper" class="fade-in overlay">
         <!-- Intro 头部显示 s -->
                 <div id="intro">
-            <h1>This is<br />
-                        Eggyyyy </h1>
+            <h1><span class="intro-prefix">This is</span><br />
+                        <span class="intro-name">Eggyyyy</span> </h1>
             <p> Welcome to Eggy's gallery <br/> Enjoy everything
             </p>
             <ul class="actions">
                 <li><a href="#header" class="button icon solo fa-arrow-down scrolly">Continue</a></li>
             </ul>
         </div>
+        <style>
+        #intro p { opacity: 0.7; }
+        #intro h1 .intro-prefix {
+            font-size: 0.6em;
+            font-weight: 400;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            opacity: 0.7;
+            display: inline-block;
+            margin-bottom: 0.3em;
+        }
+        #intro h1 .intro-name .ltr {
+            display: inline-block;
+            transition: transform .35s ease;
+            transform-origin: 50% 70%;
+        }
+        #intro h1 .intro-name .ltr:first-child {
+            color: #f5b301;
+            text-shadow: 0 0 24px rgba(245,179,1,0.35);
+        }
+        #intro h1 .intro-name:hover .ltr { transform: rotate(0deg) translateY(0) !important; }
+        </style>
+        <script>
+        (function(){
+          var h = document.querySelector('#intro h1 .intro-name');
+          if (!h) return;
+          var walker = document.createTreeWalker(h, NodeFilter.SHOW_TEXT, null, false);
+          var nodes = [];
+          while (walker.nextNode()) nodes.push(walker.currentNode);
+          nodes.forEach(function(node){
+            var text = node.nodeValue;
+            var frag = document.createDocumentFragment();
+            for (var i = 0; i < text.length; i++) {
+              var ch = text.charAt(i);
+              if (ch === ' ' || ch === '\n' || ch === '\t') {
+                frag.appendChild(document.createTextNode(ch));
+                continue;
+              }
+              var span = document.createElement('span');
+              span.className = 'ltr';
+              span.textContent = ch;
+              var deg = (Math.random() * 16 - 8).toFixed(2);
+              var dy = (Math.random() * 6 - 3).toFixed(2);
+              span.style.transform = 'rotate(' + deg + 'deg) translateY(' + dy + 'px)';
+              frag.appendChild(span);
+            }
+            node.parentNode.replaceChild(frag, node);
+          });
+        })();
+        </script>
         <!-- Intro 头部显示 e -->
-        <!-- Header 头部logo start -->
-        <header id="header">
-    <a href="/" class="logo">Eggy</a>
-</header>
-        <!-- Header 头部logo end -->
         <!-- Nav 导航条 start -->
         <nav id="nav" class="special" >
             <ul class="menu links" >
 			<!-- Homepage  主页  --> 
 			<li >
-	            <a href="/" rel="nofollow">主页</a>
+	            <a href="/" rel="nofollow">Home</a>
 	        </li>
 			<!-- categories_name  分类   --> 
 	        
-	        <li class="active">
-	            <a href="#s1">分类</a>
+	        <li>
+	            <a href="#s1">Categories</a>
 	                    <ul class="submenu">
 	                        <li>
 	                        
@@ -111,26 +156,26 @@
 		        <!-- Pages 自定义   -->
 		        
 		        <li>
-		            <a href="/about/" title="简历">
-		                简历
+		            <a href="/about/" title="About">
+		                About
 		            </a>
 		        </li>
 		        
 		        <li>
-		            <a href="/group/" title="团队">
-		                团队
+		            <a href="/group/" title="Team">
+		                Team
 		            </a>
 		        </li>
 		        
 		        <li>
-		            <a href="/gallery/" title="图库">
-		                图库
+		            <a href="/gallery/" title="Gallery">
+		                Gallery
 		            </a>
 		        </li>
 		        
 		        <li>
-		            <a href="/tag/" title="标签">
-		                标签
+		            <a href="/tag/" title="Tags">
+		                Tags
 		            </a>
 		        </li>
 		        
@@ -138,6 +183,33 @@
 
             </ul>
             <!-- icons 图标   -->
+            <script>
+            (function(){
+              var path = location.pathname.replace(/\/+$/, '') || '/';
+              var links = document.querySelectorAll('#nav ul.links li a[href]');
+              var bestLen = 0, bestEl = null;
+              links.forEach(function(a){
+                var raw = a.getAttribute('href') || '';
+                if (raw.charAt(0) === '#') return; // 跳过 #s1 这类锚点
+                var href;
+                try { href = new URL(a.href).pathname.replace(/\/+$/, '') || '/'; }
+                catch(e){ return; }
+                if (href === '/' || href === '') return;
+                if (path === href || path.indexOf(href + '/') === 0) {
+                  if (href.length > bestLen) { bestLen = href.length; bestEl = a; }
+                }
+              });
+              if (!bestEl && path === '/') {
+                links.forEach(function(a){
+                  try {
+                    var p = new URL(a.href).pathname.replace(/\/+$/, '') || '/';
+                    if (p === '/') bestEl = a;
+                  } catch(e){}
+                });
+              }
+              if (bestEl) bestEl.classList.add('is-current');
+            })();
+            </script>
 			<ul class="icons">
                     
                     <li>
@@ -280,6 +352,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             transition: opacity .4s ease, transform .2s ease, color .18s ease;
+            display: inline-block;
         }
         .hero-now:hover .hero-now__text { transform: translateX(0.35rem); }
         .hero-now__text.is-fading { opacity: 0; }
@@ -315,6 +388,21 @@
             if (!root.classList.contains('is-link')) e.preventDefault();
           });
           if (!Array.isArray(items) || items.length === 0) return;
+          // Lock text width to the widest item so the hit area never shrinks
+          (function lockWidth(){
+            var probe = document.createElement('span');
+            var cs = window.getComputedStyle(textEl);
+            probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;'
+              + 'font:' + cs.font + ';letter-spacing:' + cs.letterSpacing + ';';
+            document.body.appendChild(probe);
+            var max = 0;
+            for (var i = 0; i < items.length; i++) {
+              probe.textContent = items[i];
+              if (probe.offsetWidth > max) max = probe.offsetWidth;
+            }
+            document.body.removeChild(probe);
+            if (max > 0) textEl.style.minWidth = max + 'px';
+          })();
           var idx = Math.floor(Math.random() * items.length);
           apply(idx);
           if (items.length < 2) return;
@@ -384,7 +472,7 @@
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 0 0.9rem 0.9rem;
+  padding: 0 0.5rem 0.9rem 0.9rem;
   scrollbar-width: thin;
   scrollbar-color: rgba(255,255,255,0.12) transparent;
 }
@@ -487,9 +575,10 @@
   align-items: center;
   padding: 0.35rem 0.1rem 0.4rem;
   font-family: "SF Pro SC", "PingFang SC", -apple-system, sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
   color: #c8c8c8;
   border-bottom: 1px solid rgba(255,255,255,0.06);
   margin-bottom: 0.25rem;
@@ -616,7 +705,7 @@
       <div class="hm-sidebar-head">
         <div class="hm-sidebar-label">Regions</div>
         <a href="#all" data-region="all" class="hm-item hm-item-all active">
-          <span class="hm-name">全部</span>
+          <span class="hm-name">All</span>
           <span class="hm-count">4</span>
         </a>
       </div>
@@ -624,7 +713,7 @@
       
         <details class="hm-group" data-group-key="north_america">
           <summary>
-            <span>北美洲</span>
+            <span>North America</span>
             <span class="hm-group-right">
               <span class="hm-group-count">2</span>
               <span class="hm-chevron">▾</span>
@@ -632,17 +721,17 @@
           </summary>
           
             <a href="#us-mainland" data-region="us-mainland" data-count="2" class="hm-item">
-              <span class="hm-name">美国本土</span>
+              <span class="hm-name">Continental US</span>
               <span class="hm-count">2</span>
             </a>
           
             <a href="#alaska" data-region="alaska" data-count="0" class="hm-item">
-              <span class="hm-name">阿拉斯加<span class="hm-sub">（美国）</span></span>
+              <span class="hm-name">Alaska</span>
               <span class="hm-count">0</span>
             </a>
           
             <a href="#hawaii" data-region="hawaii" data-count="0" class="hm-item">
-              <span class="hm-name">夏威夷<span class="hm-sub">（美国）</span></span>
+              <span class="hm-name">Hawaii</span>
               <span class="hm-count">0</span>
             </a>
           
@@ -650,7 +739,7 @@
       
         <details class="hm-group" data-group-key="europe">
           <summary>
-            <span>欧洲</span>
+            <span>Europe</span>
             <span class="hm-group-right">
               <span class="hm-group-count">0</span>
               <span class="hm-chevron">▾</span>
@@ -658,22 +747,22 @@
           </summary>
           
             <a href="#italy" data-region="italy" data-count="0" class="hm-item">
-              <span class="hm-name">意大利</span>
+              <span class="hm-name">Italy</span>
               <span class="hm-count">0</span>
             </a>
           
             <a href="#switzerland" data-region="switzerland" data-count="0" class="hm-item">
-              <span class="hm-name">瑞士</span>
+              <span class="hm-name">Switzerland</span>
               <span class="hm-count">0</span>
             </a>
           
             <a href="#norway" data-region="norway" data-count="0" class="hm-item">
-              <span class="hm-name">挪威</span>
+              <span class="hm-name">Norway</span>
               <span class="hm-count">0</span>
             </a>
           
             <a href="#iceland" data-region="iceland" data-count="0" class="hm-item">
-              <span class="hm-name">冰岛</span>
+              <span class="hm-name">Iceland</span>
               <span class="hm-count">0</span>
             </a>
           
@@ -681,7 +770,7 @@
       
         <details class="hm-group" data-group-key="asia">
           <summary>
-            <span>亚洲</span>
+            <span>Asia</span>
             <span class="hm-group-right">
               <span class="hm-group-count">1</span>
               <span class="hm-chevron">▾</span>
@@ -689,22 +778,22 @@
           </summary>
           
             <a href="#china" data-region="china" data-count="1" class="hm-item">
-              <span class="hm-name">中国</span>
+              <span class="hm-name">China</span>
               <span class="hm-count">1</span>
             </a>
           
             <a href="#japan" data-region="japan" data-count="0" class="hm-item">
-              <span class="hm-name">日本</span>
+              <span class="hm-name">Japan</span>
               <span class="hm-count">0</span>
             </a>
           
             <a href="#korea" data-region="korea" data-count="0" class="hm-item">
-              <span class="hm-name">韩国</span>
+              <span class="hm-name">Korea</span>
               <span class="hm-count">0</span>
             </a>
           
             <a href="#singapore" data-region="singapore" data-count="0" class="hm-item">
-              <span class="hm-name">新加坡</span>
+              <span class="hm-name">Singapore</span>
               <span class="hm-count">0</span>
             </a>
           
@@ -719,7 +808,7 @@
 </section>
 
 <script id="home-map-data" type="application/json">[{"lat":47.64272,"lng":-122.10304,"title":"Idylwood Beach Park","place":"Idylwood Beach Park · Redmond, WA","date":"2026-04-05","url":"/2026/04/05/2026-04-05-idylwood-beach-park/","region":"us-mainland"},{"lat":38.0430144,"lng":114.5196765,"title":"Childhood Memories","place":"棉三生活区 · 石家庄，河北","date":"2026-03-20","url":"/2026/03/20/2026-03-20-childhood-memories/","region":"china"},{"lat":47.6097,"lng":-122.3422,"title":"First Time in Seattle","place":"Pike Place Market · Seattle, WA","date":"2025-05-04","url":"/2025/05/04/2025-05-04-first-time-in-seattle/","region":"us-mainland"}]</script>
-<script id="home-map-regions" type="application/json">{"us-mainland":{"key":"us-mainland","name":"美国本土","bbox":[-125,-66,24,50],"geo":{"type":"us-state-except","exclude":["Alaska","Hawaii","Puerto Rico"]}},"alaska":{"key":"alaska","name":"阿拉斯加（美国）","bbox":[-170,-130,51,72],"geo":{"type":"us-state","name":"Alaska"}},"hawaii":{"key":"hawaii","name":"夏威夷（美国）","bbox":[-161,-154,18,23],"geo":{"type":"us-state","name":"Hawaii"}},"italy":{"key":"italy","name":"意大利","bbox":[6.6,18.6,36.6,47.1],"geo":{"type":"country","id":"ITA"}},"switzerland":{"key":"switzerland","name":"瑞士","bbox":[5.9,10.5,45.8,47.9],"geo":{"type":"country","id":"CHE"}},"norway":{"key":"norway","name":"挪威","bbox":[4,31,57.5,71.5],"geo":{"type":"country","id":"NOR"}},"iceland":{"key":"iceland","name":"冰岛","bbox":[-24.6,-13.3,63.2,66.6],"geo":{"type":"country","id":"ISL"}},"china":{"key":"china","name":"中国","bbox":[73,135,18,54],"geo":{"type":"country","id":"CHN"}},"japan":{"key":"japan","name":"日本","bbox":[122,146,24,46],"geo":{"type":"country","id":"JPN"}},"korea":{"key":"korea","name":"韩国","bbox":[124,131,33,39],"geo":{"type":"country","id":"KOR"}},"singapore":{"key":"singapore","name":"新加坡","bbox":[103.5,104.2,1.1,1.5],"geo":{"type":"country","id":"SGP"}}}</script>
+<script id="home-map-regions" type="application/json">{"us-mainland":{"key":"us-mainland","name":"Continental US","bbox":[-125,-66,24,50],"geo":{"type":"us-state-except","exclude":["Alaska","Hawaii","Puerto Rico"]}},"alaska":{"key":"alaska","name":"Alaska","bbox":[-170,-130,51,72],"geo":{"type":"us-state","name":"Alaska"}},"hawaii":{"key":"hawaii","name":"Hawaii","bbox":[-161,-154,18,23],"geo":{"type":"us-state","name":"Hawaii"}},"italy":{"key":"italy","name":"Italy","bbox":[6.6,18.6,36.6,47.1],"geo":{"type":"country","id":"ITA"}},"switzerland":{"key":"switzerland","name":"Switzerland","bbox":[5.9,10.5,45.8,47.9],"geo":{"type":"country","id":"CHE"}},"norway":{"key":"norway","name":"Norway","bbox":[4,31,57.5,71.5],"geo":{"type":"country","id":"NOR"}},"iceland":{"key":"iceland","name":"Iceland","bbox":[-24.6,-13.3,63.2,66.6],"geo":{"type":"country","id":"ISL"}},"china":{"key":"china","name":"China","bbox":[73,135,18,54],"geo":{"type":"country","id":"CHN"}},"japan":{"key":"japan","name":"Japan","bbox":[122,146,24,46],"geo":{"type":"country","id":"JPN"}},"korea":{"key":"korea","name":"Korea","bbox":[124,131,33,39],"geo":{"type":"country","id":"KOR"}},"singapore":{"key":"singapore","name":"Singapore","bbox":[103.5,104.2,1.1,1.5],"geo":{"type":"country","id":"SGP"}}}</script>
 
 <script>
 (function(){

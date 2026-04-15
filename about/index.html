@@ -170,17 +170,25 @@
         <header id="header">
     <a href="/" class="logo">Eggy</a>
 </header>
+<script>
+(function(){
+  var logo = document.querySelector('#header .logo');
+  if (!logo) return;
+  var text = logo.textContent;
+  logo.innerHTML = text.replace(/g/gi, '<span class="g-egg">$&</span>');
+})();
+</script>
         <!-- Nav 导航条 start -->
         <nav id="nav" class="special" >
             <ul class="menu links" >
 			<!-- Homepage  主页  --> 
 			<li >
-	            <a href="/" rel="nofollow">主页</a>
+	            <a href="/" rel="nofollow">Home</a>
 	        </li>
 			<!-- categories_name  分类   --> 
 	        
-	        <li class="active">
-	            <a href="#s1">分类</a>
+	        <li>
+	            <a href="#s1">Categories</a>
 	                    <ul class="submenu">
 	                        <li>
 	                        
@@ -193,26 +201,26 @@
 		        <!-- Pages 自定义   -->
 		        
 		        <li>
-		            <a href="/about/" title="简历">
-		                简历
+		            <a href="/about/" title="About">
+		                About
 		            </a>
 		        </li>
 		        
 		        <li>
-		            <a href="/group/" title="团队">
-		                团队
+		            <a href="/group/" title="Team">
+		                Team
 		            </a>
 		        </li>
 		        
 		        <li>
-		            <a href="/gallery/" title="图库">
-		                图库
+		            <a href="/gallery/" title="Gallery">
+		                Gallery
 		            </a>
 		        </li>
 		        
 		        <li>
-		            <a href="/tag/" title="标签">
-		                标签
+		            <a href="/tag/" title="Tags">
+		                Tags
 		            </a>
 		        </li>
 		        
@@ -220,6 +228,33 @@
 
             </ul>
             <!-- icons 图标   -->
+            <script>
+            (function(){
+              var path = location.pathname.replace(/\/+$/, '') || '/';
+              var links = document.querySelectorAll('#nav ul.links li a[href]');
+              var bestLen = 0, bestEl = null;
+              links.forEach(function(a){
+                var raw = a.getAttribute('href') || '';
+                if (raw.charAt(0) === '#') return; // 跳过 #s1 这类锚点
+                var href;
+                try { href = new URL(a.href).pathname.replace(/\/+$/, '') || '/'; }
+                catch(e){ return; }
+                if (href === '/' || href === '') return;
+                if (path === href || path.indexOf(href + '/') === 0) {
+                  if (href.length > bestLen) { bestLen = href.length; bestEl = a; }
+                }
+              });
+              if (!bestEl && path === '/') {
+                links.forEach(function(a){
+                  try {
+                    var p = new URL(a.href).pathname.replace(/\/+$/, '') || '/';
+                    if (p === '/') bestEl = a;
+                  } catch(e){}
+                });
+              }
+              if (bestEl) bestEl.classList.add('is-current');
+            })();
+            </script>
 			<ul class="icons">
                     
                     <li>
@@ -243,7 +278,45 @@
 	    
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <p>My name is Eggy!!!!!!</p>
+                <style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
+#main { background-color: rgba(20, 21, 24, 0.88) !important; }
+.about-page, .about-page p, .about-page li {
+  color: #d8d4cc;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", sans-serif;
+  font-weight: 300;
+  line-height: 1.75;
+}
+.about-page h1, .about-page h2, .about-page h3 {
+  color: #f2efe8;
+  border-color: #2a2a2a;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.about-page a { color: #f5b301; }
+.about-page hr { border-color: #2a2a2a; }
+.about-page strong { color: #f2efe8; }
+.about-page code { background: #1f2024; color: #e4e0d8; }
+</style>
+
+<div class="about-page">
+
+<h2 id="Hi-I’m-Eggy"><a href="#Hi-I’m-Eggy" class="headerlink" title="Hi, I’m Eggy"></a>Hi, I’m Eggy</h2><p>[A line or two about yourself — who, where, what. E.g. “A photography enthusiast based in Seattle. I write code by day and wander with a camera on weekends.”]</p>
+<h2 id="About-this-site"><a href="#About-this-site" class="headerlink" title="About this site"></a>About this site</h2><p>A home for my photos and notes. No fixed theme — mostly travel, cities, light, and people.<br>Browse by region from the map on the homepage, or scroll down for the timeline.</p>
+<h2 id="How-I-shoot"><a href="#How-I-shoot" class="headerlink" title="How I shoot"></a>How I shoot</h2><p>[A few lines about your approach &#x2F; preferences. E.g. “I favor natural light and rarely use flash.”<br>“More street candid than posed.” “I shoot both film and digital, but film makes me slow down.”]</p>
+<h2 id="Gear"><a href="#Gear" class="headerlink" title="Gear"></a>Gear</h2><ul>
+<li>Body: [your camera body]</li>
+<li>Go-to lens: [your most-used lens]</li>
+<li>Film &#x2F; other: [optional]</li>
+</ul>
+<h2 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h2><ul>
+<li>Email: [your email]</li>
+<li>Instagram &#x2F; Xiaohongshu &#x2F; other: [link]</li>
+</ul>
+<hr>
+<p><em>Built with Hexo. Source on <a target="_blank" rel="noopener" href="https://github.com/Eggy-lab/Eggy-lab.github.io">GitHub</a>.</em></p>
+</div>
 
                 
                 <div class="post-location" id="post-location">

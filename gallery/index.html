@@ -1,0 +1,497 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.png"/>
+	<link rel="shortcut icon" href="/img/logo_miccall.png">
+	
+			    <title>
+    Hexo
+    </title>
+    <meta charset="utf-8" />
+    <script>
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="miccall" />
+    
+    	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	 
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script async type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/goose.js"></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+		
+<!-- Layouts -->
+
+    <!-- Gallery photowall -->
+    
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+<body class="is-loading">
+<div id="wrapper" class="fade-in">
+    <header id="header">
+    <a href="/" class="logo">Eggy</a>
+</header>
+<script>
+(function(){
+  var logo = document.querySelector('#header .logo');
+  if (!logo) return;
+  var text = logo.textContent;
+  logo.innerHTML = text.replace(/g/gi, '<span class="g-egg">$&</span>');
+})();
+</script>
+    <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">Home</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li>
+	            <a href="#s1">Categories</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="About">
+		                About
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/group/" title="Team">
+		                Team
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/gallery/" title="Gallery">
+		                Gallery
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tag/" title="Tags">
+		                Tags
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+            <script>
+            (function(){
+              var path = location.pathname.replace(/\/+$/, '') || '/';
+              var links = document.querySelectorAll('#nav ul.links li a[href]');
+              var bestLen = 0, bestEl = null;
+              links.forEach(function(a){
+                var raw = a.getAttribute('href') || '';
+                if (raw.charAt(0) === '#') return; // 跳过 #s1 这类锚点
+                var href;
+                try { href = new URL(a.href).pathname.replace(/\/+$/, '') || '/'; }
+                catch(e){ return; }
+                if (href === '/' || href === '') return;
+                if (path === href || path.indexOf(href + '/') === 0) {
+                  if (href.length > bestLen) { bestLen = href.length; bestEl = a; }
+                }
+              });
+              if (!bestEl && path === '/') {
+                links.forEach(function(a){
+                  try {
+                    var p = new URL(a.href).pathname.replace(/\/+$/, '') || '/';
+                    if (p === '/') bestEl = a;
+                  } catch(e){}
+                });
+              }
+              if (bestEl) bestEl.classList.add('is-current');
+            })();
+            </script>
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/miccall" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a title="500px" href="http://500px.com" target="_blank" rel="noopener">
+                            <i class="icon fa fa-500px"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+    <div id="main" style="background-color: rgba(20, 21, 24, 0.9) !important; padding: 3rem 2.5rem !important; box-sizing: border-box;">
+        <div class="photowall-head">
+            <div class="photowall-label">Gallery</div>
+            <div class="photowall-sub">12 frames · 4 stories</div>
+        </div>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function(){
+          document.querySelectorAll('.photowall .pw-item img').forEach(function(img){
+            function tag(){
+              var item = img.closest('.pw-item');
+              if (!item || !img.naturalWidth) return;
+              item.classList.add(img.naturalWidth >= img.naturalHeight ? 'is-landscape' : 'is-portrait');
+            }
+            if (img.complete && img.naturalWidth) tag();
+            else img.addEventListener('load', tag);
+          });
+        });
+        </script>
+
+        <div class="photowall">
+            
+                <section class="pw-group">
+                    <header class="pw-group-head">
+                        <h2 class="pw-group-title"><a href="/2026/04/05/2026-04-05-idylwood-beach-park/">Idylwood Beach Park</a></h2>
+                        <div class="pw-group-meta">
+                            <span class="pw-group-date">2026.04.05</span>
+                            <span class="pw-group-sep">·</span><span class="pw-group-place">Idylwood Beach Park · Redmond, WA</span>
+                        </div>
+                    </header>
+                    <div class="pw-group-grid">
+                        
+                            <a class="pw-item" href="/2026/04/05/2026-04-05-idylwood-beach-park/" title="Idylwood Beach Park">
+                                <img src="/images/20260405/B0018669HEIC1775409746.JPG" loading="lazy" alt="Idylwood Beach Park" />
+                                <span class="pw-caption">Idylwood Beach Park</span>
+                            </a>
+                        
+                            <a class="pw-item" href="/2026/04/05/2026-04-05-idylwood-beach-park/" title="Idylwood Beach Park">
+                                <img src="/images/20260405/B0018587HEIC1775408304.JPG" loading="lazy" alt="Idylwood Beach Park" />
+                                <span class="pw-caption">Idylwood Beach Park</span>
+                            </a>
+                        
+                            <a class="pw-item" href="/2026/04/05/2026-04-05-idylwood-beach-park/" title="Idylwood Beach Park">
+                                <img src="/images/20260405/B0018605HEIC1775408662.JPG" loading="lazy" alt="Idylwood Beach Park" />
+                                <span class="pw-caption">Idylwood Beach Park</span>
+                            </a>
+                        
+                    </div>
+                </section>
+            
+                <section class="pw-group">
+                    <header class="pw-group-head">
+                        <h2 class="pw-group-title"><a href="/2026/03/20/2026-03-20-childhood-memories/">Childhood Memories</a></h2>
+                        <div class="pw-group-meta">
+                            <span class="pw-group-date">2026.03.20</span>
+                            <span class="pw-group-sep">·</span><span class="pw-group-place">棉三生活区 · 石家庄，河北</span>
+                        </div>
+                    </header>
+                    <div class="pw-group-grid">
+                        
+                            <a class="pw-item" href="/2026/03/20/2026-03-20-childhood-memories/" title="Childhood Memories">
+                                <img src="/images/20260320/B0017731HEIC1773978334.JPG" loading="lazy" alt="Childhood Memories" />
+                                <span class="pw-caption">Childhood Memories</span>
+                            </a>
+                        
+                            <a class="pw-item" href="/2026/03/20/2026-03-20-childhood-memories/" title="Childhood Memories">
+                                <img src="/images/20260320/B0018143HEIC1774003714.JPG" loading="lazy" alt="Childhood Memories" />
+                                <span class="pw-caption">Childhood Memories</span>
+                            </a>
+                        
+                            <a class="pw-item" href="/2026/03/20/2026-03-20-childhood-memories/" title="Childhood Memories">
+                                <img src="/images/20260320/B0017761HEIC1773978938.JPG" loading="lazy" alt="Childhood Memories" />
+                                <span class="pw-caption">Childhood Memories</span>
+                            </a>
+                        
+                    </div>
+                </section>
+            
+                <section class="pw-group">
+                    <header class="pw-group-head">
+                        <h2 class="pw-group-title"><a href="/2025/06/26/2025-06-26-sunset-in-seattle/">Sunset in Seattle</a></h2>
+                        <div class="pw-group-meta">
+                            <span class="pw-group-date">2025.06.26</span>
+                            
+                        </div>
+                    </header>
+                    <div class="pw-group-grid">
+                        
+                            <a class="pw-item" href="/2025/06/26/2025-06-26-sunset-in-seattle/" title="Sunset in Seattle">
+                                <img src="/images/IMG_4781.jpg" loading="lazy" alt="Sunset in Seattle" />
+                                <span class="pw-caption">Sunset in Seattle</span>
+                            </a>
+                        
+                            <a class="pw-item" href="/2025/06/26/2025-06-26-sunset-in-seattle/" title="Sunset in Seattle">
+                                <img src="/images/IMG_4783.jpg" loading="lazy" alt="Sunset in Seattle" />
+                                <span class="pw-caption">Sunset in Seattle</span>
+                            </a>
+                        
+                            <a class="pw-item" href="/2025/06/26/2025-06-26-sunset-in-seattle/" title="Sunset in Seattle">
+                                <img src="/images/IMG_4784.jpg" loading="lazy" alt="Sunset in Seattle" />
+                                <span class="pw-caption">Sunset in Seattle</span>
+                            </a>
+                        
+                    </div>
+                </section>
+            
+                <section class="pw-group">
+                    <header class="pw-group-head">
+                        <h2 class="pw-group-title"><a href="/2025/05/04/2025-05-04-first-time-in-seattle/">First Time in Seattle</a></h2>
+                        <div class="pw-group-meta">
+                            <span class="pw-group-date">2025.05.04</span>
+                            <span class="pw-group-sep">·</span><span class="pw-group-place">Pike Place Market · Seattle, WA</span>
+                        </div>
+                    </header>
+                    <div class="pw-group-grid">
+                        
+                            <a class="pw-item" href="/2025/05/04/2025-05-04-first-time-in-seattle/" title="First Time in Seattle">
+                                <img src="/images/20250504/B00137833FR1746364620.jpg" loading="lazy" alt="First Time in Seattle" />
+                                <span class="pw-caption">First Time in Seattle</span>
+                            </a>
+                        
+                            <a class="pw-item" href="/2025/05/04/2025-05-04-first-time-in-seattle/" title="First Time in Seattle">
+                                <img src="/images/20250504/B00138033FR1746365122.jpg" loading="lazy" alt="First Time in Seattle" />
+                                <span class="pw-caption">First Time in Seattle</span>
+                            </a>
+                        
+                            <a class="pw-item" href="/2025/05/04/2025-05-04-first-time-in-seattle/" title="First Time in Seattle">
+                                <img src="/images/20250504/B00138253FR1746366570.jpg" loading="lazy" alt="First Time in Seattle" />
+                                <span class="pw-caption">First Time in Seattle</span>
+                            </a>
+                        
+                    </div>
+                </section>
+            
+        </div>
+    </div>
+
+            <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a target="_blank" rel="noopener" href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+                <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+</div>
+
+<style>
+/* 去掉主题默认给 #main 子元素加的 2px 白线 */
+#main > * { border-top: 0 !important; }
+
+.photowall-head {
+    text-align: center;
+    padding: 1rem 0 3rem;
+    color: #d8d4cc;
+}
+.photowall-label {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 2.4rem;
+    font-weight: 500;
+    font-style: italic;
+    color: #f2efe8;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.3rem;
+}
+.photowall-sub {
+    font-family: Georgia, serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #6a6a6a;
+}
+
+.photowall {
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+}
+
+/* 每个 post 一个展厅分区 */
+.pw-group {
+    margin-bottom: 4.5rem;
+}
+.pw-group:last-child { margin-bottom: 1rem; }
+
+.pw-group-head {
+    margin-bottom: 1.4rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(200, 180, 150, 0.15);
+}
+.pw-group-title {
+    margin: 0 0 0.35rem 0;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.4rem;
+    letter-spacing: 0.01em;
+    color: #ece7de;
+}
+.pw-group-title a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 0;
+    transition: color 0.2s ease;
+}
+.pw-group-title a:hover {
+    color: #f5b301;
+}
+.pw-group-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    font-family: Georgia, serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #7a7065;
+}
+.pw-group-sep { opacity: 0.5; }
+.pw-group-place { letter-spacing: 0.18em; }
+
+/* 展厅内：瀑布流 3 列，竖图自然占一整列、横图按 4:3 展示，产生错落感 */
+.pw-group-grid {
+    column-count: 3;
+    column-gap: 28px;
+}
+.pw-group-grid > .pw-item {
+    break-inside: avoid;
+    display: block;
+    margin-bottom: 28px;
+    width: 100%;
+}
+@media (max-width: 900px) { .pw-group-grid { column-count: 2; column-gap: 20px; } }
+@media (max-width: 520px) { .pw-group-grid { column-count: 1; } }
+
+/* 木质相框：多层渐变模拟木纹 + 内外斜面 + 墙面投影 */
+.photowall .pw-item {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    border: 0 !important;
+    padding: 18px 18px 44px 18px;
+    background:
+        repeating-linear-gradient(88deg,
+            rgba(0,0,0,0.22) 0px,
+            rgba(0,0,0,0) 2px,
+            rgba(0,0,0,0) 7px,
+            rgba(0,0,0,0.1) 9px,
+            rgba(0,0,0,0) 14px),
+        repeating-linear-gradient(90deg,
+            rgba(255,240,220,0.03) 0px,
+            rgba(0,0,0,0) 1px,
+            rgba(0,0,0,0) 4px,
+            rgba(0,0,0,0.12) 5px),
+        linear-gradient(180deg, #3a2a20 0%, #2d1f16 35%, #21140d 65%, #2a1d14 100%);
+    background-blend-mode: multiply, overlay, normal;
+    box-shadow:
+        inset 0 1px 0 rgba(180, 140, 95, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+        inset 1px 0 0 rgba(180, 140, 95, 0.08),
+        inset -1px 0 0 rgba(0, 0, 0, 0.45),
+        0 14px 28px rgba(0, 0, 0, 0.6),
+        0 6px 10px rgba(0, 0, 0, 0.4);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.photowall .pw-item:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        inset 0 1px 0 rgba(180, 140, 95, 0.26),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+        inset 1px 0 0 rgba(180, 140, 95, 0.1),
+        inset -1px 0 0 rgba(0, 0, 0, 0.45),
+        0 22px 40px rgba(0, 0, 0, 0.7),
+        0 10px 16px rgba(0, 0, 0, 0.45);
+}
+.photowall .pw-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.4),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+}
+.photowall .pw-item.is-landscape img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+.photowall .pw-caption {
+    position: absolute;
+    left: 18px; right: 18px; bottom: 0;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(245, 230, 200, 0.85);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+}
+</style>
+</body>
+
+
+
+ 	
+</html>
