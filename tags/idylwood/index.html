@@ -79,7 +79,7 @@
             <p> Welcome to Eggy's gallery <br/> Enjoy everything
             </p>
             <ul class="actions">
-                <li><a href="#header" class="button icon solo fa-arrow-down scrolly">Continue</a></li>
+                <li><a href="#posts" class="button icon solo fa-arrow-down scrolly">Continue</a></li>
             </ul>
         </div>
         <style>
@@ -103,6 +103,25 @@
             text-shadow: 0 0 24px rgba(245,179,1,0.35);
         }
         #intro h1 .intro-name:hover .ltr { transform: rotate(0deg) translateY(0) !important; }
+        #intro .actions .button.scrolly {
+            color: #fff !important;
+            border-color: #fff !important;
+            background-color: transparent !important;
+            box-shadow: inset 0 0 0 1px #fff !important;
+            transition: color 0.3s ease, border-color 0.3s ease,
+                        box-shadow 0.3s ease, transform 0.3s ease,
+                        text-shadow 0.3s ease !important;
+        }
+        #intro .actions .button.scrolly:hover,
+        #intro .actions .button.scrolly:focus,
+        #intro .actions .button.scrolly:active {
+            color: #f5b301 !important;
+            border-color: #f5b301 !important;
+            box-shadow: inset 0 0 0 1px #f5b301,
+                        0 0 24px rgba(245,179,1,0.35) !important;
+            text-shadow: 0 0 24px rgba(245,179,1,0.35) !important;
+            transform: scale(1.12);
+        }
         </style>
         <script>
         (function(){
@@ -257,7 +276,7 @@
         #main > .link_container > .link_row > * > .link_box { margin-top: 0 !important; }
         </style>
         <div id="main" style="background-color: transparent; padding:0;">
-        <div class="home-posts-label">Posts</div>
+        <div id="posts" class="home-posts-label">Posts</div>
         <section class="link_container" style="margin-top: 0; background-color: transparent; ">
             <div class="link_row">
                 <!-- 文章sample  s-->
